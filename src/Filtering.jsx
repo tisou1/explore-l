@@ -1,7 +1,9 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useCallback } from 'react'
 import './Filtering.scss'
 import 'antd/dist/antd.css'
+import { useLatest } from './useLatest'
 import { Input, Select } from 'antd'
+import { useEffect } from 'react'
 const { Option } = Select
 
 // interface ItemType {
@@ -14,7 +16,7 @@ const { Option } = Select
 
 // interface FilteringType {
 //   selectList: ItemType[]
-//   selectChange: (values: any[]) => void
+//   onChange: (values: any[]) => void
 // }
 
 function initFn(initState) {
@@ -24,21 +26,46 @@ function initFn(initState) {
 }
 
 function Filtering(props) {
-  const { selectList, selectChange } = props
+  const { selectList, onChange } = props
+  const [state, dispatch] = useReducer(
+    reducer,
+    { select: selectList.map(val => val.defaultValue), search: '' },
+     initFn
+  )
 
-  // const [selecteds, setSelecteds] = useState(() => Array.from({ length: selectList.length }, () => ''))
-
-  const [state, dispatch] = useReducer(reducer, { select: [], search: '' }, initFn)
-
-  function reducer() {
-    
+  const ref = useLatest({ select: selectList.map(val => val.defaultValue), search: '' })
+  function reducer(state, action) {
+      switch(action.type) {
+        case 'select':
+          return {
+            ...state,
+            select: action.data,
+          }
+        case 'search':
+          return {
+            ...state,
+            search: action.data,
+          }
+        default:
+          return state
+    }
   }
 
-  const changeValue = (item, value, Option) => {
-    const tempList = [...selecteds]
+
+  useEffect(() => {
+    onChange(state)
+  },[state])
+
+  const selectChange = (item, value, Option) => {
+    const tempList = [... state.select]
     tempList.splice(item.index, 1, value)
-    setSelecteds(tempList)
-    selectChange(tempList)
+    dispatch({ type: 'select', data: tempList })
+    onChange(state)
+  }
+
+  const searchChange = (e) => {
+   dispatch({type:'search', data: e.target?.value})
+   onChange(state)
   }
 
   return (
@@ -54,7 +81,7 @@ function Filtering(props) {
                   && <div className="title-modal" onClick={selectItem.modal?.onClick}>{selectItem.modal?.title}</div>
                 }
               </div>
-              <Select defaultValue={selectList[idx].options[0]} onChange={(value, option) => changeValue(selectList[idx], value, option)} >
+              <Select defaultValue={selectList[idx].defaultValue} onChange={(value, option) => selectChange(selectList[idx], value, option)} >
                 {
                   selectItem.options.map((val, idx) => (
                     <Option value={val} key={idx}>{val}</Option>
@@ -66,8 +93,9 @@ function Filtering(props) {
         }
       </div>
 
-      <InputSearch />
-
+      <InputSearch searchChange={searchChange}/>
+      
+      <Show list={state}/>
     </section>
   )
 }
@@ -75,9 +103,27 @@ function Filtering(props) {
 export default Filtering
 
 function InputSearch(props) {
+  const { searchChange } = props
   return (
     <div>
-      <Input placeholder="搜索栏(项目/ID/持有人)" />
+      <Input placeholder="搜索栏(项目/ID/持有人)" onChange={searchChange}/>
     </div>
   )
 }
+
+
+function Show(props) {
+  const { list } = props
+  console.log(list)
+  return (
+    <div>
+     {list.search}asda
+     {
+       list.select.map((val,idx) => (
+         <div key={idx}>{val}</div>
+        ))
+     }
+    </div>
+  )
+}
+
