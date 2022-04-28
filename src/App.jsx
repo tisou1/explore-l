@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react'
+import { useState, useReducer, useRef ,useEffect} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Filtering from './Filtering'
@@ -44,31 +44,41 @@ function App() {
   }
   return (
     <div className={'btn container-app w-[1200px] mx-auto'}>
-      <Filtering selectList={list} onChange={changeValue}/>
-      {/* <Count/> */}
+      {/* <Filtering selectList={list} onChange={changeValue}/> */}
+      <Counter/>
     </div>
   )
 }
 
-function reducer(state,action) {
-  switch(action.type) {
-    case '+':
-      return state + 1
-    default: state
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+  const add = () => {
+    console.log('setCount',count)
+    setCount(count+1)
   }
+  return <h1 onClick={add}>Now: {count}, before: {prevCount}</h1>;
 }
 
-function Count() {
-  const [state, dispatch] = useReducer(reducer, 0)
-  const click = () => {
-    console.log("state",state)
-    dispatch({type:'+'})
-    console.log("state",state)
-
-  }
-  return(
-    <div onClick={click} className="p-2 bg-gray-500">{state}</div>
-  )
+function usePrevious(value) {
+  const ref = useRef(value);
+  useEffect(() => {
+    //useEffect是在dom渲染结束后执行.所以页面上显示的ref是上一轮的. 这里更新的值只会在下一轮显示
+    ref.current = value;
+    console.log('...',value);
+  });
+  return ref.current;
 }
+
+function useLatest(value){
+  const ref = useRef(value)
+  ref.current = value
+
+  return ref.current
+}
+
+
+
 
 export default App
