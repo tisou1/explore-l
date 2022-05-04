@@ -2,21 +2,21 @@ import { useState, useReducer, useRef ,useEffect} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Filtering from './Filtering'
-
+import WrapComponent from './components/wrapComponent'
 function App() {
   const list = [
     {
       title: '类别',
       label: 'n1',
       index: 0,
-      defaultValue: 1,
+      defaultValue: '未选择',
       options: [1, 2, 3],
     },
     {
       title: '项目',
       label: 'n2',
       index: 1,
-      defaultValue: 4,
+      defaultValue: '未选择',
       options: [4, 5, 6],
       modal: {
         title: '选择属性',
@@ -27,14 +27,14 @@ function App() {
       title: '增加',
       label: 'n3',
       index: 2,
-      defaultValue: 7,
+      defaultValue: '未选择',
       options: [7, 8, 9],
     },
     {
       title: '24H成交量',
       label: 'n4',
       index: 3,
-      defaultValue: 100000,
+      defaultValue: '未选择',
       options: [100000, 200000, 300000, 500000],
     },
   ]
@@ -44,8 +44,9 @@ function App() {
   }
   return (
     <div className={'btn container-app w-[1200px] mx-auto'}>
+      <WrapComponent />
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
-      <Counter/>
+      {/* <Counter/> */}
     </div>
   )
 }

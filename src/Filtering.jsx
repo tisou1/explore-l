@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useCallback } from 'react'
+import React, {memo, useReducer, useState, useCallback } from 'react'
 import './Filtering.scss'
 import 'antd/dist/antd.css'
 import { useLatest } from './useLatest'
@@ -6,18 +6,6 @@ import { Input, Select } from 'antd'
 import { useEffect } from 'react'
 const { Option } = Select
 
-// interface ItemType {
-//   title: string
-//   label: string
-//   index: number
-//   options: string[]
-//   modal?: any
-// }
-
-// interface FilteringType {
-//   selectList: ItemType[]
-//   onChange: (values: any[]) => void
-// }
 
 function initFn(initState) {
   return {
@@ -26,6 +14,7 @@ function initFn(initState) {
 }
 
 function Filtering(props) {
+  const [count, setCount] = useState(0);
   const { selectList, onChange } = props
   const [state, dispatch] = useReducer(
     reducer,
@@ -46,6 +35,8 @@ function Filtering(props) {
             ...state,
             search: action.data,
           }
+        case 'clearAll':
+          return { select: state.select.map(val => ''), search: '',}
         default:
           return state
     }
@@ -60,16 +51,16 @@ function Filtering(props) {
     const tempList = [... state.select]
     tempList.splice(item.index, 1, value)
     dispatch({ type: 'select', data: tempList })
-    onChange(state)
+    // onChange(state)
   }
 
-  const searchChange = (e) => {
+  const searchChange =(e) => {
    dispatch({type:'search', data: e.target?.value})
-   onChange(state)
   }
 
   return (
     <section className="filtering">
+      <div className='p-2 bg-gray-300/70' onClick={() => setCount(count + 1)}>{count}</div>
       <div className="f-select">
         {
           selectList.map((selectItem, idx) => (
@@ -93,9 +84,9 @@ function Filtering(props) {
         }
       </div>
 
-      <InputSearch searchChange={searchChange}/>
+      <InputSearch value={state.search} searchChange={searchChange} />
       
-      <Show list={state}/>
+      <ConditionBar list={state} dispatch={dispatch} selectList={selectList}/>
     </section>
   )
 }
@@ -103,27 +94,54 @@ function Filtering(props) {
 export default Filtering
 
 function InputSearch(props) {
-  const { searchChange } = props
+  const { searchChange, value } = props
+
   return (
     <div>
-      <Input placeholder="搜索栏(项目/ID/持有人)" onChange={searchChange}/>
+      <Input placeholder="搜索栏(项目/ID/持有人)" value={value} onChange={searchChange}/>
     </div>
   )
 }
 
 
-function Show(props) {
-  const { list } = props
-  console.log(list)
+const ConditionBar =  memo((props) => {
+  const { list, dispatch, selectList } = props
+  console.log('condition',selectList);
+  const clearClick = (index) => {
+    const tempList = [... list.select]
+    //其实我们可以拿到他的默认值放进去,而不房一个空字符串
+    tempList.splice(index, 1, '')
+    dispatch({ type: 'select', data: tempList })
+  }
+
+  const showClearAll = () => {
+    return list.select.every(val => val !== '') && list.search !== ''
+  }
+console.log(showClearAll());
   return (
-    <div>
-     {list.search}asda
+    <div className='condition-bar'>
      {
        list.select.map((val,idx) => (
-         <div key={idx}>{val}</div>
+        val !== '' && val !== selectList[idx].defaultValue &&
+         <div key={idx} className="condition">
+            <div>图像</div>
+            <div className="condition-name">{val}</div>
+            <div className='clear-condition' onClick={() => clearClick(idx)}>×</div>
+         </div>
         ))
+     }
+     {
+       list.search && list.search !== '' &&
+         <div className='condition'>
+           <div className="condition-name">{list.search}</div>
+           <div className='clear-condition' onClick={() => dispatch({type: 'search', data: ''})}>×</div>
+         </div>
+     }
+     {
+      showClearAll() &&
+       <div onClick={() => dispatch({type: 'clearAll'})} className="clear-all">Clear All</div>
      }
     </div>
   )
-}
+})
 

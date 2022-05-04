@@ -23,4 +23,34 @@
      }
    }
   }
+
+  // condition
+  .condition-bar{
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+    height: 48px;
+    .condition{
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin-right: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      font-size: 12px;
+      text-transform: capitalize;
+      color: #000000;
+      .condition-name{
+        margin: 0 8px;
+      }
+      .clear-condition{
+        cursor: pointer;
+      }
+    }
+    .clear-all{
+      cursor: pointer;
+      color: #F6D353;
+      font-weight: 600;
+    }
+  }
  }
