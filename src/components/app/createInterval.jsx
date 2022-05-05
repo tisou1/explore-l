@@ -5,7 +5,9 @@ import './createInterval.scss'
 const list = [
   { name: 'USD', token: 'p-icon-USD' },
   { name: 'BNB', token: 'p-icon-BNB' },
-  { name: 'Polygon', token: 'p-icon-Polygon' }
+  { name: 'Polygon', token: 'p-icon-Polygon' },
+  { name: 'ETH', token: 'p-icon-ETH' }
+
 ]
 
 export default function CreateInterval(props) {
@@ -37,14 +39,15 @@ export default function CreateInterval(props) {
       <TokenItem list={list} tokenChange={(token) => setSelectData({...selectData, token})}/>
 
       <div className='min-max'>
-        <input type="text" value={selectData.min} onChange={(e) => setSelectData({ ...selectData, min: e.target.value })} />
-        <input type="text" value={selectData.max} onChange={(e) => setSelectData({ ...selectData, max: e.target.value })} />
+        <input type="text" placeholder='Min' value={selectData.min} onChange={(e) => setSelectData({ ...selectData, min: e.target.value })} />
+        <input type="text" placeholder='Max' value={selectData.max} onChange={(e) => setSelectData({ ...selectData, max: e.target.value })} />
       </div>
       <div className='submit-btn'>
         <button onClick={clickHandle}>确定</button>
       </div>
     </div>
   ), [selectData])
+  
   return (
     <div className='wrap-dropdown'>
       <Dropdown

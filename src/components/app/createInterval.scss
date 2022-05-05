@@ -31,12 +31,27 @@
   }
 }
 
+.min-max{
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 14px;
+  input{
+    padding:8px 32px ;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    outline: none;
+  }
+}
+
 // list
 .token-list-int{
   .token-item{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
     .item-left{
       display: flex;
       align-items: center;
