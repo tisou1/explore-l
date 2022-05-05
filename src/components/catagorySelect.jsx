@@ -4,7 +4,7 @@ import './wrapComponent.scss'
 import logo from '../logo.svg'
 
 
-function WrapComponent() {
+function CetagorySelect() {
   const list = [
     {name:'时间'},
     {name:'空间'},
@@ -153,4 +153,4 @@ function MultipleItem(props) {
 }
 
 
-export default WrapComponent
+export default CetagorySelect

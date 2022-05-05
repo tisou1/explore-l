@@ -1,47 +1,105 @@
- .menu-list{
-   min-width: 180px;
-   background-color: rgba(128,128,128,0.3);
-   padding: 12px;
-   .menu-item{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #000;
-    font-weight: 600;
-    cursor: pointer;
-    &:hover{
-      background-color: rgba(128,128,128,0.5);
-    }
-    .item-left{
+.custom-select-menu {
+  background: #fff;
+  box-shadow: 0px 4px 32px rgba(68, 68, 68, 0.16);
+  border-radius: 8px;
+  padding: 12px;
+
+  .menu-list {
+    min-width: 180px;
+
+    .menu-item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 12px 0;
+      cursor: pointer;
+
+      // &:hover{
+      // }
+      .item-left {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+
+        &.active {
+          color: #000;
+          font-weight: 600;
+        }
+
+        .left-value {
+          margin-left: 8px;
+        }
+      }
+
+      .item-right {
+        font-size: 20px;
+      }
+
+      .p-icon-NoSelectedn {
+        color: #F6D353;
+      }
     }
-    .p-icon-NoSelectedn{
-      color: chocolate;
+  }
+
+  .search-input {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    input{
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 12px;
     }
-   }
- }
+  }
+
+  .submit-btn {
+    padding: 12px 0;
+
+    button {
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 8px 0;
+      cursor: pointer;
+      border-radius: 8px;
+      background-color: #F6D353;
+      font-size: 12px;
+      color: #000;
+      font-weight: 700;
+    }
+  }
+}
 
 //  customSelect
-
-.custom-select{
+.custom-select {
   width: 100%;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  .select-value{
+
+  .select-value {
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #000;
+    font-size: 14px;
   }
-  .picon{
-    transition: all 0.5s linear;
-    &.rotate{
+
+  .picon {
+    color: rgba(0, 0, 0, 0.12);
+    font-weight: 700;
+    transition: all 0.3s ease-in;
+
+    &.rotate {
       transform: rotate(-180deg);
     }
   }

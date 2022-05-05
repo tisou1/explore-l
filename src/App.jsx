@@ -43,7 +43,7 @@ function App() {
     console.log('状态值:', values)
   }
   return (
-    <div className={'btn container-app w-[1200px] mx-auto'}>
+    <div className={'btn container-app w-[300px] mx-auto '}>
       <WrapComponent />
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}
