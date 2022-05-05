@@ -1,8 +1,9 @@
 
 
 import React, { useState, useReducer } from 'react'
+import { useEffect } from 'react'
 import CetagorySelect from './categorySelect'
-
+import ProjectSelect from './projectSelect'
 
 
 function initFn(initState) {
@@ -40,28 +41,35 @@ const initState = {
 
 function FilterSelect(props) {
   const { onChange } = props
+  const [count,setCount] = useState(0)
   const [state, dispatch] = useReducer(reducer, initState, initFn)
 
   function reducer(state, action) {
     switch (action.type) {
       case 'categorySelect':
         return {
-          ...state,
-          select: action.data,
+         ...state,
+         categorySelect: [...action.data]
         }
-      case 'clearAll':
-        return {}
+      case 'clearAll': 
+        return {...initState}
       default:
         return state
     }
   }
+
+  useEffect(() => {
+    onChange(state)
+  },[state])
 
   const changeHandle = () => {
     //触发事件,把状态抛出去
   }
   return (
     <div className='filter-select-main'>
-      <CetagorySelect />
+      <CetagorySelect dispatch={dispatch} />
+      <ProjectSelect dispatch={dispatch} />
+      {/* <div onClick={() => setCount(count + 1)}>{count}</div> */}
     </div>
   )
 }

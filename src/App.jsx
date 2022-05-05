@@ -4,10 +4,12 @@ import Filtering from './Filtering'
 import { useLatest, usePrevious } from './hooks'
 import FilterSelect from './components/FilterSelect'
 function App() {
-
+  const changeHandle = (state) => {
+    console.log('state:',state);
+  }
   return (
     <div className={'btn container-app w-[300px] mx-auto '}>
-      <FilterSelect />
+      <FilterSelect onChange={changeHandle}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}
     </div>
