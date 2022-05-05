@@ -7,6 +7,10 @@ import ProjectSelect from './projectSelect'
 import StatusSelect from './statusSelect'
 import EventSelect from './eventSelect'
 
+import PriceSelect from './priceSelect'
+
+import './FilterSelect.scss'
+
 
 function initFn(initState) {
   return {
@@ -42,7 +46,7 @@ const initState = {
 }
 
 function FilterSelect(props) {
-  const { onChange } = props
+  const { onChange, selects } = props
   const [count,setCount] = useState(0)
   const [state, dispatch] = useReducer(reducer, initState, initFn)
 
@@ -55,7 +59,13 @@ function FilterSelect(props) {
       case 'categorySelect':
         return {
          ...state,
-         [action.type]: [...action.data]
+         [action.type]: action.data
+        }
+      
+      case 'priceSelect':
+        return {
+          ...state,
+          [action.type]: action.data
         }
       case 'clearAll': 
         return {...initState}
@@ -68,19 +78,28 @@ function FilterSelect(props) {
     onChange(state)
   },[state])
 
-  const changeHandle = () => {
-    //触发事件,把状态抛出去
-  }
+  const selectMapping = new Map([
+    ['CategorySelect', <CategorySelect key='CategorySelect' dispatch={dispatch}/>],
+    ['ProjectSelect', <ProjectSelect key='ProjectSelect' dispatch={dispatch}/>],
+    ['StatusSelect', <StatusSelect key='StatusSelect' dispatch={dispatch}/>],
+    ['EventSelect', <EventSelect key='EventSelect' dispatch={dispatch}/>],
+    ['PriceSelect', <PriceSelect key='PriceSelect' dispatch={dispatch}/>],
+  ])
+
+  let selectComponentList = selects.map((val) => {
+    if(selectMapping.has(val))
+      return selectMapping.get(val)
+  })
+  // const changeHandle = () => {
+  //   //触发事件,把状态抛出去
+  // }
   return (
     <div className='filter-select-main'>
-      CategorySelect:
-      <CategorySelect dispatch={dispatch} />
-      ProjectSelect:
-      <ProjectSelect dispatch={dispatch} />
-      StatusSelect:
-      <StatusSelect dispatch={dispatch}/>
-      EventSelect:
-      <EventSelect dispatch={dispatch}/>
+      {
+        selectComponentList.map((component) => (
+          component
+        ))
+      }
       {/* <div onClick={() => setCount(count + 1)}>{count}</div> */}
     </div>
   )

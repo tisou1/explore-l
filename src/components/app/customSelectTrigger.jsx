@@ -15,7 +15,7 @@ const CustomSelectTrigger = memo((props) => {
   }, [selectData.data])
 
   return (
-    <div className='custom-select'>
+    <div className='custom-select-mul'>
       <div className='select-value'>{showWhichOrigin}</div>
       <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
     </div>

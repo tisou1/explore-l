@@ -8,8 +8,14 @@ function App() {
     console.log('state:',state);
   }
   return (
-    <div className={'btn container-app w-[300px] mx-auto '}>
-      <FilterSelect onChange={changeHandle}/>
+    <div className={'btn container-app w-[1200px] mx-auto '}>
+      <FilterSelect 
+        onChange={changeHandle} 
+        selects={[
+          'CategorySelect',
+          'ProjectSelect',
+          'PriceSelect'
+        ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}
     </div>
