@@ -6,7 +6,13 @@ import './createMultipleMenu.scss'
 
 
 export default function CreateMultipleMenu(props) {
-  const { dispatch, search, list, type } = props
+  const { 
+    dispatch, 
+    search=false, 
+    avatar=true,
+    list, 
+    type 
+  } = props
 
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
@@ -77,7 +83,7 @@ export default function CreateMultipleMenu(props) {
       <div className='menu-list'>
         {
           filterList.map((val, idx) => (
-            <MultipleItem key={idx} item={val} index={idx} changeHandle={changeHandle} />
+            <MultipleItem key={idx} item={val} index={idx} avatar={avatar} changeHandle={changeHandle} />
           ))
         }
       </div>

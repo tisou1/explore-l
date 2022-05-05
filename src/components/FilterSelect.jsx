@@ -4,6 +4,7 @@ import React, { useState, useReducer } from 'react'
 import { useEffect } from 'react'
 import CategorySelect from './categorySelect'
 import ProjectSelect from './projectSelect'
+import StatusSelect from './statusSelect'
 
 
 function initFn(initState) {
@@ -46,6 +47,8 @@ function FilterSelect(props) {
 
   function reducer(state, action) {
     switch (action.type) {
+      // multiple
+      case 'statusSelect':
       case 'projectSelect':
       case 'categorySelect':
         return {
@@ -68,8 +71,12 @@ function FilterSelect(props) {
   }
   return (
     <div className='filter-select-main'>
+      CategorySelect:
       <CategorySelect dispatch={dispatch} />
+      ProjectSelect:
       <ProjectSelect dispatch={dispatch} />
+      StatusSelect:
+      <StatusSelect dispatch={dispatch}/>
       {/* <div onClick={() => setCount(count + 1)}>{count}</div> */}
     </div>
   )

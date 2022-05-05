@@ -3,7 +3,7 @@ import logo from '../../logo.svg'
 
 function MultipleItem(props) {
   // console.log('MultipleItem组件');
-  const { item, index, changeHandle } = props
+  const { item, index, changeHandle, avatar } = props
   const [active, setActive] = useState(false)
   const clickHandle = () => {
     changeHandle(item.name, index, !active)
@@ -12,7 +12,10 @@ function MultipleItem(props) {
   return (
     <div className="menu-item" onClick={clickHandle}>
       <div className={`item-left ${active ? 'active' : ''}`}>
-        <img src={logo} className='w-24px h-[24px]' alt="" />
+        {
+          avatar &&
+          <img src={logo} className='w-24px h-[24px]' alt="" />
+        }
         <div className='left-value'>{item.name}</div>
       </div>
       {
