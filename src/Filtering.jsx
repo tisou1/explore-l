@@ -6,6 +6,44 @@ import { Input, Select } from 'antd'
 import { useEffect } from 'react'
 const { Option } = Select
 
+const list = [
+  {
+    title: '类别',
+    label: 'n1',
+    index: 0,
+    defaultValue: '未选择',
+    options: [1, 2, 3],
+  },
+  {
+    title: '项目',
+    label: 'n2',
+    index: 1,
+    defaultValue: '未选择',
+    options: [4, 5, 6],
+    modal: {
+      title: '选择属性',
+      onClick: () => console.log('打开modal'),
+    },
+  },
+  {
+    title: '增加',
+    label: 'n3',
+    index: 2,
+    defaultValue: '未选择',
+    options: [7, 8, 9],
+  },
+  {
+    title: '24H成交量',
+    label: 'n4',
+    index: 3,
+    defaultValue: '未选择',
+    options: [100000, 200000, 300000, 500000],
+  },
+]
+
+const changeValue = (values) => {
+  console.log('状态值:', values)
+}
 
 function initFn(initState) {
   return {
