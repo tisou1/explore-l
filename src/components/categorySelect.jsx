@@ -1,7 +1,7 @@
 import CreateMultipleMenu from './app/createMultipleMenu'
 
 
-export default function CetagorySelect(props) {
+export default function CategorySelect(props) {
   const list = [
     { name: 'PFP' },
     { name: '艺术品' },
@@ -10,6 +10,6 @@ export default function CetagorySelect(props) {
     { name: 'Music' }
   ]
   return (
-    <CreateMultipleMenu {...props} list={list}/>
+    <CreateMultipleMenu {...props} type="categorySelect" list={list}/>
   )
 }

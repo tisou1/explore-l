@@ -2,11 +2,11 @@ import { useState, useMemo, memo } from 'react'
 import { Dropdown } from 'antd'
 import CustomSelectTrigger from './customSelectTrigger'
 import MultipleItem from './multipleItem'
-import '../wrapComponent.scss'
+import './createMultipleMenu.scss'
 
 
 export default function CreateMultipleMenu(props) {
-  const { dispatch, search, list } = props
+  const { dispatch, search, list, type } = props
 
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
@@ -49,7 +49,7 @@ export default function CreateMultipleMenu(props) {
 
   const clickHandle = () => {
     let tempselectData = selectData.data.filter(val => val !== '').join(',')
-    dispatch({ type: 'categorySelect', data: selectData.data.filter(val => val !== '') })
+    dispatch({ type: type, data: selectData.data.filter(val => val !== '') })
     // console.log('当前组件的选中值:',tempselectData);
 
     //close

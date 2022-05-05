@@ -2,7 +2,7 @@
 
 import React, { useState, useReducer } from 'react'
 import { useEffect } from 'react'
-import CetagorySelect from './categorySelect'
+import CategorySelect from './categorySelect'
 import ProjectSelect from './projectSelect'
 
 
@@ -46,10 +46,11 @@ function FilterSelect(props) {
 
   function reducer(state, action) {
     switch (action.type) {
+      case 'projectSelect':
       case 'categorySelect':
         return {
          ...state,
-         categorySelect: [...action.data]
+         [action.type]: [...action.data]
         }
       case 'clearAll': 
         return {...initState}
@@ -67,7 +68,7 @@ function FilterSelect(props) {
   }
   return (
     <div className='filter-select-main'>
-      <CetagorySelect dispatch={dispatch} />
+      <CategorySelect dispatch={dispatch} />
       <ProjectSelect dispatch={dispatch} />
       {/* <div onClick={() => setCount(count + 1)}>{count}</div> */}
     </div>
