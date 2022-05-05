@@ -8,7 +8,7 @@ import logo from '../logo.svg'
 
 function CetagorySelect() {
   const list = [
-    {name:'时间11'},
+    {name:'时间'},
     {name:'空间'},
     {name:'质量'},
   ]
