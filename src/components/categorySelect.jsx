@@ -1,12 +1,14 @@
 import { useState, useMemo, memo } from 'react'
 import { Dropdown } from 'antd'
+import CustomSelectTrigger from './app/customSelectTrigger'
+import MultipleItem from './app/multipleItem'
 import './wrapComponent.scss'
 import logo from '../logo.svg'
 
 
 function CetagorySelect() {
   const list = [
-    {name:'时间'},
+    {name:'时间11'},
     {name:'空间'},
     {name:'质量'},
   ]
@@ -90,7 +92,7 @@ function CetagorySelect() {
           setVisible(v)
         }}>
         <div>
-          <CustomSelect selectData={selectData} show={visible} />
+          <CustomSelectTrigger selectData={selectData} show={visible} />
         </div>
       </Dropdown>
     </div>
@@ -98,59 +100,7 @@ function CetagorySelect() {
 }
 
 
-/// trigegr children
-const CustomSelect = memo((props) => {
-  // console.log('CustomSelect组件',props.selectData);
-  const { selectData, show } = props
 
-  const showWhichOrigin = useMemo(() => {
-    let flag = selectData.data.some(val => val !== '')
-    if (flag) {
-      return selectData.data.filter(val => val !== '').join(',')
-    } else {
-      return selectData.defaultValue
-    }
-  }, [selectData.data])
-
-  return (
-    <div className='custom-select'>
-      <div className='select-value'>{showWhichOrigin}</div>
-      <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
-    </div>
-  )
-})
-
-///item
-
-function MultipleItem(props) {
-  // console.log('MultipleItem组件');
-  const { item, index, changeHandle } = props
-  const [active, setActive] = useState(false)
-  const clickHandle = () => {
-    changeHandle(item.name, index, !active)
-    setActive(!active)
-  }
-  return (
-    <div className="menu-item" onClick={clickHandle}>
-      <div className={`item-left ${active ? 'active' : ''}`}>
-        <img src={logo} className='w-24px h-[24px]' alt="" />
-        <div className='left-value'>{item.name}</div>
-      </div>
-      {
-        active
-          ?
-          <div className='item-right'>
-            <svg className="icon" aria-hidden="true">
-              <use xlinkHref="#p-icon-Selectedn"></use>
-            </svg>
-          </div>
-          :
-          <div className='item-right picon p-icon-NoSelectedn'></div>
-      }
-
-    </div>
-  )
-}
 
 
 export default CetagorySelect

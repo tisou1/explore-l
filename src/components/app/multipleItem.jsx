@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../../logo.svg'
 
 function MultipleItem(props) {
   // console.log('MultipleItem组件');
@@ -25,7 +26,8 @@ function MultipleItem(props) {
           :
           <div className='item-right picon p-icon-NoSelectedn'></div>
       }
-
     </div>
   )
 }
+
+export default MultipleItem

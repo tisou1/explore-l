@@ -2,7 +2,7 @@ import { useState, useReducer, useRef ,useEffect} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Filtering from './Filtering'
-import WrapComponent from './components/wrapComponent'
+import WrapComponent from './components/categorySelect'
 function App() {
   const list = [
     {
