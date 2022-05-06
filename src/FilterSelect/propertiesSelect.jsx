@@ -1,4 +1,4 @@
-import CreateSignal from "./app/createSignal";
+import CreateMulPro from "./app/createMulPro";
 
 
 const list = [
@@ -13,6 +13,6 @@ const list = [
 
 export default function PropertiesSelect(props) {
   return (
-    <CreateSignal {...props} list={list} defaultValue="7D" title="属性" type="propertiesSelect"/>
+    <CreateMulPro {...props} list={list} defaultValue="7D" title="属性" type="propertiesSelect"/>
   )
 }
