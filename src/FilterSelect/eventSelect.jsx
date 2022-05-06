@@ -7,7 +7,7 @@ export default function EventSelect(props) {
     { name: '交易' },
   ]
   return (
-    <CreateMultipleMenu {...props} list={list} type="eventSelect" avatar={false}/>
+    <CreateMultipleMenu {...props} list={list} title="eventSelect" type="eventSelect" avatar={false}/>
   )
 }
 

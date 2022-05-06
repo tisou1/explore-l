@@ -11,7 +11,8 @@ export default function CreateMultipleMenu(props) {
     search=false, 
     avatar=true,
     list, 
-    type 
+    type,
+    title
   } = props
 
   const [visible, setVisible] = useState(false)
@@ -94,6 +95,7 @@ export default function CreateMultipleMenu(props) {
   ), [selectData, filterText])
   return (
     <div className='wrap-dropdown'>
+        <div className='mb-3'>{title}</div>
       <Dropdown
         trigger={['click']}
         overlay={menu}

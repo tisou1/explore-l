@@ -10,7 +10,7 @@ export default function ProjectSelect(props) {
     { name: 'Bored Ape Yacht Club' }
   ]
   return (
-    <CreateMultipleMenu {...props} list={list} type="projectSelect" search/>
+    <CreateMultipleMenu {...props} list={list}  title="projectSelect"  type="projectSelect" search/>
   )
 }
 

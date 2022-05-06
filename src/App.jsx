@@ -2,7 +2,7 @@ import { useState, useReducer, useRef ,useEffect} from 'react'
 import logo from './logo.svg'
 import Filtering from './Filtering'
 import { useLatest, usePrevious } from './hooks'
-import FilterSelect from './components/FilterSelect'
+import FilterSelect from './FilterSelect'
 function App() {
   const changeHandle = (state) => {
     console.log('state:',state);
@@ -14,6 +14,8 @@ function App() {
         selects={[
           'CategorySelect',
           'ProjectSelect',
+          'StatusSelect',
+          "EventSelect",
           'PriceSelect'
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}

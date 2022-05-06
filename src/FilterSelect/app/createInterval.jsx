@@ -13,7 +13,8 @@ const list = [
 export default function CreateInterval(props) {
   const {
     dispatch,
-    type
+    type,
+    title
   } = props
 
   const [visible, setVisible] = useState(false)
@@ -50,6 +51,7 @@ export default function CreateInterval(props) {
   
   return (
     <div className='wrap-dropdown'>
+      <div className='mb-3'>{title}</div>
       <Dropdown
         trigger={['click']}
         overlay={menu}

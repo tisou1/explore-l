@@ -1,0 +1,14 @@
+.filter-select-main{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 24px;
+  >div{
+    flex: auto;
+  }
+
+  .filter-select-show{
+    .picon.p-icon-ShutDown{
+      font-size: 20px;
+    }
+  }
+}
