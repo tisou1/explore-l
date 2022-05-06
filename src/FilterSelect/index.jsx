@@ -14,6 +14,8 @@ import FloorSelect from './floorSelect'
 
 import TimeSelect from './timeSelect'
 
+import PropertiesSelect from './propertiesSelect'
+
 import './index.scss'
 import { useMemo } from 'react'
 
@@ -124,7 +126,9 @@ function FilterSelect(props) {
     ['FloorSelect', <FloorSelect key='FloorSelect' dispatch={dispatch} />],
     ['TradingSelect', <TradingSelect key='TradingSelect' dispatch={dispatch} />],
 
-    ['TimeSelect', <TimeSelect key='TimeSelect' dispatch={dispatch}/>]
+    ['TimeSelect', <TimeSelect key='TimeSelect' dispatch={dispatch}/>],
+
+    ['PropertiesSelect', <PropertiesSelect key='PropertiesSelect' dispatch={dispatch}/>]
   ])
 
   let selectComponentList = selects.map((val) => {
@@ -159,9 +163,7 @@ function FilterSelect(props) {
         if (!value.min && !value.max) return
         let hasToken = !!value.token
         list.push(
-          <div key={key}>
-            {key}:{value.min} ~ {value.max}
-          </div>
+          <ShowConditionsItem key={key} icon={hasToken} value={`${value.min} ~ ${value.max}`}/>
         )
       }
 

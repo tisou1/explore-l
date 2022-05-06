@@ -26,6 +26,7 @@ export default function CreateInterval(props) {
   })
 
   const clickHandle = () => {
+    //TODO 校验数据
     dispatch({
       type: type, data: {
         token: selectData.token,
