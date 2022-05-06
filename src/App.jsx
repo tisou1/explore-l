@@ -16,7 +16,8 @@ function App() {
           'ProjectSelect',
           'StatusSelect',
           "EventSelect",
-          'PriceSelect'
+          'PriceSelect',
+          'TimeSelect'
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}

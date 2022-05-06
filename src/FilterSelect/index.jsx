@@ -9,6 +9,8 @@ import EventSelect from './eventSelect'
 
 import PriceSelect from './priceSelect'
 
+import TimeSelect from './timeSelect'
+
 import './index.scss'
 import { useMemo } from 'react'
 
@@ -78,12 +80,21 @@ function FilterSelect(props) {
           ...state,
           [action.type]: action.data
         }
+      
+      //signal
+      case 'timeSelect':
+          return {
+            ...state,
+            [action.type]: action.data
+          }
 
+      //interval
       case 'priceSelect':
         return {
           ...state,
           [action.type]: action.data
         }
+
       case 'clearAll':
         return { ...initState }
       default:
@@ -102,6 +113,7 @@ function FilterSelect(props) {
     ['StatusSelect', <StatusSelect key='StatusSelect' dispatch={dispatch} />],
     ['EventSelect', <EventSelect key='EventSelect' dispatch={dispatch} />],
     ['PriceSelect', <PriceSelect key='PriceSelect' dispatch={dispatch} />],
+    ['TimeSelect', <TimeSelect key='TimeSelect' dispatch={dispatch}/>]
   ])
 
   let selectComponentList = selects.map((val) => {
