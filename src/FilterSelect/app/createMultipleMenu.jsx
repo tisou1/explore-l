@@ -1,8 +1,10 @@
 import { useState, useMemo, memo } from 'react'
 import { Dropdown } from 'antd'
-import CustomSelectTrigger from './customSelectTrigger'
-import MultipleItem from './multipleItem'
+// import CustomSelectTrigger from './customSelectTrigger'
+// import MultipleItem from './multipleItem'
 import './createMultipleMenu.scss'
+import logo from '../../logo.svg'
+
 
 
 export default function CreateMultipleMenu(props) {
@@ -107,6 +109,62 @@ export default function CreateMultipleMenu(props) {
           <CustomSelectTrigger selectData={selectData} show={visible} />
         </div>
       </Dropdown>
+    </div>
+  )
+}
+
+
+/// trigegr children
+const CustomSelectTrigger = memo((props) => {
+  // console.log('CustomSelect组件',props.selectData);
+  const { selectData, show } = props
+
+  const showWhichOrigin = useMemo(() => {
+    let flag = selectData.data.some(val => val !== '')
+    if (flag) {
+      return selectData.data.filter(val => val !== '').join(',')
+    } else {
+      return selectData.defaultValue
+    }
+  }, [selectData.data])
+
+  return (
+    <div className='custom-select-mul'>
+      <div className='select-value'>{showWhichOrigin}</div>
+      <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
+    </div>
+  )
+})
+
+
+function MultipleItem(props) {
+  // console.log('MultipleItem组件');
+  const { item, index, changeHandle, avatar } = props
+  const [active, setActive] = useState(false)
+  const clickHandle = () => {
+    changeHandle(item.name, index, !active)
+    setActive(!active)
+  }
+  return (
+    <div className="menu-item" onClick={clickHandle}>
+      <div className={`item-left ${active ? 'active' : ''}`}>
+        {
+          avatar &&
+          <img src={logo} className='w-24px h-[24px]' alt="" />
+        }
+        <div className='left-value'>{item.name}</div>
+      </div>
+      {
+        active
+          ?
+          <div className='item-right'>
+            <svg className="icon" aria-hidden="true">
+              <use xlinkHref="#p-icon-Selectedn"></use>
+            </svg>
+          </div>
+          :
+          <div className='item-right picon p-icon-NoSelectedn'></div>
+      }
     </div>
   )
 }
