@@ -1,7 +1,9 @@
 .filter-select-main{
-  display: flex;
-  flex-flow: row wrap;
-  gap: 24px;
+  .filter-select-list{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px;
+  }
   .wrap-dropdown{
     flex: auto;
     .dropdown-title{
@@ -12,8 +14,31 @@
   }
 
   .filter-select-show{
+    display: flex;
+    gap: 12px;
+    color: #000;
+    .condition-display{
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      .condition-left{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        margin-right: 8px;
+        .token-name{
+          margin-right: 8px;
+          font-size: 20px;
+        }
+      }
+    }
     .picon.p-icon-ShutDown{
-      font-size: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
     }
   }
 }

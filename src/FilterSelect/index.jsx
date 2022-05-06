@@ -120,10 +120,7 @@ function FilterSelect(props) {
       if (MULTIPLESELECT.includes(key) && Array.isArray(value)) {
         if (value.length > 0) {
           list.push(
-            <div key={key}>
-              <span>{value.join(',')}</span>
-              <span className='picon p-icon-ShutDown'></span>
-            </div>
+           <ShowConditionsItem key={key} value={value.join(',')}/>
           )
         }
       }
@@ -131,12 +128,12 @@ function FilterSelect(props) {
       //单选
       else if (SIGNALSELECT.includes(key)) {
         list.push(
-          <div key={key}>{key}:{value}</div>
+          <ShowConditionsItem key={key} value={value}/>
         )
       }
       //区间
       else if (INTERVALSELECT.includes(key)) {
-        if(!value.min && !value.max) return
+        if (!value.min && !value.max) return
         let hasToken = !!value.token
         list.push(
           <div key={key}>
@@ -153,16 +150,35 @@ function FilterSelect(props) {
   }, [state])
   return (
     <div className='filter-select-main'>
-      {
-        selectComponentList.map((component) => (
-          component
-        ))
-      }
+      <div className='filter-select-list'>
+        {
+          selectComponentList.map((component) => (
+            component
+          ))
+        }
+      </div>
 
-      <div className='filter-select-show'>
+      <div className='filter-select-show mt-6'>
         {showConditions}
       </div>
       {/* <div onClick={() => setCount(count + 1)}>{count}</div> */}
+    </div>
+  )
+}
+
+function ShowConditionsItem(props) {
+  const { icon, value } = props
+  return (
+    <div className="condition-display">
+      <div className='condition-left'>
+        <div className='token-name'>
+          <svg className="icon" aria-hidden="true">
+            <use xlinkHref="#p-icon-Userx"></use>
+          </svg>
+        </div>
+        <span>{value}</span>
+      </div>
+      <span className='condition-right picon p-icon-ShutDown'></span>
     </div>
   )
 }
