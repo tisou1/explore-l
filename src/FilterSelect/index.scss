@@ -2,8 +2,13 @@
   display: flex;
   flex-flow: row wrap;
   gap: 24px;
-  >div{
+  .wrap-dropdown{
     flex: auto;
+    .dropdown-title{
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+    }
   }
 
   .filter-select-show{

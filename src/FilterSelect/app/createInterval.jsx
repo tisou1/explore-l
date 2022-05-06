@@ -51,7 +51,7 @@ export default function CreateInterval(props) {
   
   return (
     <div className='wrap-dropdown'>
-      <div className='mb-3'>{title}</div>
+      <div className='dropdown-title mb-3'>{title}</div>
       <Dropdown
         trigger={['click']}
         overlay={menu}
