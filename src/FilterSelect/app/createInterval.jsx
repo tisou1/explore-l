@@ -7,14 +7,14 @@ const list = [
   { name: 'BNB', token: 'p-icon-BNB' },
   { name: 'Polygon', token: 'p-icon-Polygon' },
   { name: 'ETH', token: 'p-icon-ETH' }
-
 ]
 
 export default function CreateInterval(props) {
   const {
     dispatch,
     type,
-    title
+    title,
+    icon = true,
   } = props
 
   const [visible, setVisible] = useState(false)
@@ -26,18 +26,23 @@ export default function CreateInterval(props) {
   })
 
   const clickHandle = () => {
-    dispatch({ type: type, data: {
-      token: selectData.token,
-      min: selectData.min,
-      max: selectData.max
-    }})
+    dispatch({
+      type: type, data: {
+        token: selectData.token,
+        min: selectData.min,
+        max: selectData.max
+      }
+    })
     //close
     setVisible(false)
   }
 
   const menu = useMemo(() => (
     <div className='custom-select-menu'>
-      <TokenItem list={list} tokenChange={(token) => setSelectData({...selectData, token})}/>
+      {
+        icon && 
+          <TokenItem list={list} tokenChange={(token) => setSelectData({ ...selectData, token })} icon={icon} />
+      }
 
       <div className='min-max'>
         <input type="text" placeholder='Min' value={selectData.min} onChange={(e) => setSelectData({ ...selectData, min: e.target.value })} />
@@ -48,7 +53,7 @@ export default function CreateInterval(props) {
       </div>
     </div>
   ), [selectData])
-  
+
   return (
     <div className='wrap-dropdown'>
       <div className='dropdown-title mb-3'>{title}</div>
@@ -60,7 +65,7 @@ export default function CreateInterval(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} />
+          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon}/>
         </div>
       </Dropdown>
     </div>
@@ -69,7 +74,7 @@ export default function CreateInterval(props) {
 
 
 const TokenItem = (props) => {
-  const { list, tokenChange } = props
+  const { list, tokenChange, icon } = props
   const [avtive, setActive] = useState(0)
   const clickHandle = (item, index) => {
     tokenChange(item.token)
@@ -81,53 +86,59 @@ const TokenItem = (props) => {
         list.map((item, index) => (
           <div
             key={index}
-            onClick={() => clickHandle(item,index)}
+            onClick={() => clickHandle(item, index)}
             className={`token-item ${avtive === index ? 'active' : ''}`}
           >
             <div className='item-left'>
-              <div className='token-name'>
-                <svg className="icon" aria-hidden="true">
-                  <use xlinkHref={'#'+item.token}></use>
-                </svg>
-              </div>
+              {
+                icon &&
+                <div className='token-name'>
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref={'#' + item.token}></use>
+                  </svg>
+                </div>
+              }
               <div className='left-name'> {item.name}</div>
             </div>
           </div>
-            ))
+        ))
       }
-      </div>
-  )  
+    </div>
+  )
 }
 
 
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
   // console.log('CustomSelect组件',props.selectData);
-  const {selectData, show} = props
+  const { selectData, show, icon } = props
 
   const showWhichOrigin = useMemo(() => {
-      let obj = { }
-      obj.token = selectData.token
-      let flag = selectData.min && selectData.max
-      if (flag) {
-        obj.name = `${selectData.min} ~ ${selectData.max}`
-      } else {
-        obj.name = '-'
-      }
-      return obj
+    let obj = {}
+    obj.token = selectData.token
+    let flag = selectData.min && selectData.max
+    if (flag) {
+      obj.name = `${selectData.min} ~ ${selectData.max}`
+    } else {
+      obj.name = '-'
+    }
+    return obj
   }, [selectData.min, selectData.max, selectData.token])
 
-      return (
-      <div className='custom-select-int'>
-        <div className='select-value'>
+  return (
+    <div className='custom-select-int'>
+      <div className='select-value'>
+        {
+          icon &&
           <div className='token-name'>
             <svg className="icon" aria-hidden="true">
-              <use xlinkHref={'#'+showWhichOrigin.token}></use>
+              <use xlinkHref={'#' + showWhichOrigin.token}></use>
             </svg>
           </div>
-          <span>{showWhichOrigin.name}</span>
-        </div>
-        <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
+        }
+        <span>{showWhichOrigin.name}</span>
       </div>
-      )
+      <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
+    </div>
+  )
 })

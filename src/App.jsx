@@ -17,7 +17,10 @@ function App() {
           'StatusSelect',
           "EventSelect",
           'PriceSelect',
-          'TimeSelect'
+          'TransactionsNumSelect',
+          'TradingSelect',
+          'FloorSelect',
+          'TimeSelect',
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}

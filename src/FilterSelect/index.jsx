@@ -8,6 +8,9 @@ import StatusSelect from './statusSelect'
 import EventSelect from './eventSelect'
 
 import PriceSelect from './priceSelect'
+import TransactionsNumSelect from './transactionsNumSelect'
+import TradingSelect from './tradingSelect'
+import FloorSelect from './floorSelect'
 
 import TimeSelect from './timeSelect'
 
@@ -89,6 +92,9 @@ function FilterSelect(props) {
           }
 
       //interval
+      case 'floorSelect':
+      case 'tradingSelect':
+      case 'transactionsNumSelect':
       case 'priceSelect':
         return {
           ...state,
@@ -112,7 +118,12 @@ function FilterSelect(props) {
     ['ProjectSelect', <ProjectSelect key='ProjectSelect' dispatch={dispatch} />],
     ['StatusSelect', <StatusSelect key='StatusSelect' dispatch={dispatch} />],
     ['EventSelect', <EventSelect key='EventSelect' dispatch={dispatch} />],
+
     ['PriceSelect', <PriceSelect key='PriceSelect' dispatch={dispatch} />],
+    ['TransactionsNumSelect', <TransactionsNumSelect key='TransactionsNumSelect' dispatch={dispatch} />],
+    ['FloorSelect', <FloorSelect key='FloorSelect' dispatch={dispatch} />],
+    ['TradingSelect', <TradingSelect key='TradingSelect' dispatch={dispatch} />],
+
     ['TimeSelect', <TimeSelect key='TimeSelect' dispatch={dispatch}/>]
   ])
 
