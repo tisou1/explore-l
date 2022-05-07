@@ -10,6 +10,6 @@ export default function CategorySelect(props) {
     { name: 'Music' }
   ]
   return (
-    <CreateMultipleMenu {...props} title="categorySelect" type="categorySelect" list={list}/>
+    <CreateMultipleMenu {...props} title="categorySelect" search type="categorySelect" list={list}/>
   )
 }

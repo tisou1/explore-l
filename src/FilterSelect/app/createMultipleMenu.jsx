@@ -3,7 +3,7 @@ import { Dropdown } from 'antd'
 // import CustomSelectTrigger from './customSelectTrigger'
 // import MultipleItem from './multipleItem'
 import './createMultipleMenu.scss'
-import logo from '../../logo.svg'
+import logo from '../logo.svg'
 
 
 
@@ -40,6 +40,7 @@ export default function CreateMultipleMenu(props) {
 
 
   const changeHandle = (value, index, checked) => {
+
     let tempselectData = {
       ...selectData,
       data: selectData.data.map((val, i) => {
@@ -86,7 +87,7 @@ export default function CreateMultipleMenu(props) {
       <div className='menu-list'>
         {
           filterList.map((val, idx) => (
-            <MultipleItem key={idx} item={val} index={idx} avatar={avatar} changeHandle={changeHandle} />
+            <MultipleItem key={val + idx} item={val} index={idx} avatar={avatar} changeHandle={changeHandle} />
           ))
         }
       </div>
@@ -141,6 +142,7 @@ function MultipleItem(props) {
   // console.log('MultipleItem组件');
   const { item, index, changeHandle, avatar } = props
   const [active, setActive] = useState(false)
+  console.log(active);
   const clickHandle = () => {
     changeHandle(item.name, index, !active)
     setActive(!active)

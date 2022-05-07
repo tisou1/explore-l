@@ -1,7 +1,7 @@
 import { useState, useMemo, memo, useEffect, useLayoutEffect, useRef } from 'react'
 import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'
-import logo from '../../logo.svg'
+import logo from '../logo.svg'
 import './createMulPro.scss'
 import usePrevious from '../../hooks/usePrevious'
 import { useCallback } from 'react'
@@ -49,17 +49,6 @@ export default function CreateMulPro(props) {
   })
 
 
-
-  // [v.key]: v.items.map((val, i) => {
-  //   if (i === index) {
-  //     if (checked)
-  //       return value
-  //     else
-  //       return ''
-  //   }
-  //   else
-  //     return val
-  // })
 
   const changeHandle = (subType, value, index, checked) => {
     const list = selectData.data

@@ -153,7 +153,7 @@ function FilterSelect(props) {
       }
 
       //单选
-      else if (SIGNALSELECT.includes(key)) {
+      else if (SIGNALSELECT.includes(key) && value !== '') {
         list.push(
           <ShowConditionsItem key={key} value={value}/>
         )
@@ -166,9 +166,7 @@ function FilterSelect(props) {
           <ShowConditionsItem key={key} icon={hasToken} value={`${value.min} ~ ${value.max}`}/>
         )
       }
-
       //嵌套
-
     })
     console.log(list);
     return list
