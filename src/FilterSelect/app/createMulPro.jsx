@@ -13,37 +13,61 @@ export default function CreateMulPro(props) {
     dispatch,
     search = false,
     avatar = true,
-    list,
+    // list,
     type,
     title
   } = props
 
+  const list = [
+    {
+      name: 'Trait Count',
+      key: 'Trait Count',
+      items: [
+        { name: '4', key: '4', count: 100 },
+        { name: '5', key: '5', count: 400 },
+        { name: '6', key: '6', count: 200 },
+      ]
+    },
+    {
+      name: 'Background',
+      key: 'Background',
+      items: [
+        { name: 'yellow', key: 'yellow', count: 100 },
+        { name: 'black', key: 'black', count: 400 },
+        { name: 'orange', key: 'orange', count: 200 },
+      ]
+    },
+
+  ]
+
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
     defaultValue: 'all',
-    data: list.map(_ => '')
+    data: list.map(val => ({
+      [val.key]: val.items.map(_ => ''),
+    }))
   })
-  const [filterText, setFilterText] = useState('')
 
 
-  const filterList = useMemo(() => {
-    let templist = []
-    list.forEach((item) => {
-      if (!item.name.includes(filterText)) {
-        return
-      }
 
-      templist.push(item)
-    });
-    return templist
-  }, [filterText])
-  //过滤数据
+  // [v.key]: v.items.map((val, i) => {
+  //   if (i === index) {
+  //     if (checked)
+  //       return value
+  //     else
+  //       return ''
+  //   }
+  //   else
+  //     return val
+  // })
 
+  const changeHandle = (subType, value, index, checked) => {
+    const list = selectData.data
+    // console.log('父组件changeHandle', subType, value, index, checked);
 
-  const changeHandle = (value, index, checked) => {
-    let tempselectData = {
-      ...selectData,
-      data: selectData.data.map((val, i) => {
+    let parentIndex = list.findIndex(val => Object.keys(val)[0] === subType )
+    let replaceValue = {
+      [subType]: list[parentIndex][subType].map((val, i) => {
         if (i === index) {
           if (checked)
             return value
@@ -53,6 +77,12 @@ export default function CreateMulPro(props) {
         else
           return val
       })
+    }
+
+    list[parentIndex] = replaceValue
+    let tempselectData = {
+      ...selectData,
+      data: list
     }
     setSelectData(tempselectData)
   }
@@ -66,19 +96,24 @@ export default function CreateMulPro(props) {
     setVisible(false)
   }
 
-  const filterChange = (e) => {
-    const { value } = e.target
-    console.log(value);
-    setFilterText(value)
-  }
   const menu = useMemo(() => (
     <div className='custom-select-menu mul-pro'>
-      <MultipleMenu />
+      <div className='multipleMenu'>
+        {/* 循环创建Submenu */}
+        {
+          list.map((item, index) => (
+            <MultipleSubmenu key={item.key} subType={item.key} list={item.items} title={item.name} onChange={changeHandle} />
+          ))
+        }
+      </div>
+      {/* <MultipleMenu /> */}
       <div className='submit-btn'>
         <button onClick={clickHandle}>确定</button>
       </div>
     </div>
-  ), [selectData, filterText])
+  ), [selectData])
+
+
   return (
     <div className='wrap-dropdown'>
       <div className='dropdown-title mb-3'>{title}</div>
@@ -93,10 +128,6 @@ export default function CreateMulPro(props) {
           <CustomSelectTrigger selectData={selectData} show={visible} />
         </div>
       </Dropdown>
-
-
-      {/* <CustomMenu/> */}
-
     </div>
   )
 }
@@ -106,13 +137,26 @@ const CustomSelectTrigger = memo((props) => {
   const { selectData, show } = props
 
   const showWhichOrigin = useMemo(() => {
-    let flag = selectData.data.some(val => val !== '')
+    let showWhich = []
+    let flag = false
+
+    selectData.data.forEach(v => {
+      //这个对象中只有一个key,一个value
+      v[Object.keys(v)[0]].forEach(val => {
+        if (val !== '') {
+          showWhich.push(val)
+          flag = true
+        }
+      })
+    })
+
     if (flag) {
-      return selectData.data.filter(val => val !== '').join(',')
+      return showWhich.join(',')
     } else {
       return selectData.defaultValue
     }
-  }, [selectData.data])
+  })
+
 
   return (
     <div className='custom-select-mul'>
@@ -123,48 +167,8 @@ const CustomSelectTrigger = memo((props) => {
 })
 
 
-//
-
-function MultipleMenu(props) {
-  const list = [
-    { 
-      name: 'Trait Count',
-      key: 'Trait Count',
-      items: [
-        {name: '4', key: '4', count: 100},
-        {name: '5', key: '5', count: 400},
-        {name: '6', key: '6', count: 200},
-      ]
-    },
-    { 
-      name: 'Background',
-      key: 'Background',
-      items: [
-        {name: 'yellow', key: 'yellow', count: 100},
-        {name: 'black', key: 'black', count: 400},
-        {name: 'orange', key: 'orange', count: 200},
-      ]
-    },
-
-  ]
-
-  const onClick = (e) => {
-    console.log('click', e);
-  }
-  return (
-    <div className='multipleMenu'>
-      {/* 循环创建Submenu */}
-      {
-        list.map((item, index) => (
-          <MultipleSubmenu key={item.key} list={item.items} title={item.name}/>
-        ))
-      }
-    </div>
-  )
-}
-
 function MultipleSubmenu(props) {
-  const { list, title } = props
+  const { list, title, subType, onChange } = props
   const ulRef = useRef(null)
   const [show, setShow] = useState(false)
   const [filterText, setFilterText] = useState('')
@@ -184,9 +188,24 @@ function MultipleSubmenu(props) {
     setFilterText(value)
   }
 
-  const changeHandle = useCallback((value, index, checked) => {
-    console.log('changeHandle');
-  },[])
+  const changeHandle = useCallback((type, value, index, checked) => {
+    console.log('changeHandle', type, value, index, checked);
+
+    // let tempselectData = {
+    //   ...selectData,
+    //   data: selectData.data.map((val, i) => {
+    //     if (i === index) {
+    //       if (checked)
+    //         return value
+    //       else
+    //         return ''
+    //     }
+    //     else
+    //       return val
+    //   })
+    // }
+    // setSelectData(tempselectData)
+  }, [])
 
   return (
 
@@ -210,7 +229,7 @@ function MultipleSubmenu(props) {
           <div className='menu-list'>
             {
               filterList.map((val, idx) => (
-                <MultipleItem key={idx} item={val} index={idx} changeHandle={changeHandle} />
+                <MultipleItem key={idx} item={val} type={subType} index={idx} changeHandle={onChange} />
               ))
             }
           </div>
@@ -222,11 +241,11 @@ function MultipleSubmenu(props) {
 }
 
 const MultipleItem = memo((props) => {
-  console.log('MultipleItem组件',props);
-  const { item, index, changeHandle, avatar } = props
+  // console.log('MultipleItem组件', props);
+  const { item, index, changeHandle, avatar, type } = props
   const [active, setActive] = useState(false)
   const clickHandle = () => {
-    changeHandle(item.name, index, !active)
+    changeHandle(type, item.name, index, !active)
     setActive(!active)
   }
   return (
@@ -250,7 +269,7 @@ const MultipleItem = memo((props) => {
         <div className='left-value'>{item.name}</div>
       </div>
 
-      <div className='item-righ'>{22222}</div>
+      <div className='item-righ'>{item.count}</div>
 
     </div>
   )
