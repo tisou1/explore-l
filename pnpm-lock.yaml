@@ -6,6 +6,7 @@ specifiers:
   '@vitejs/plugin-react': ^1.3.0
   antd: ^4.20.1
   react: ^18.0.0
+  react-auto-height-transition: ^0.1.3
   react-dom: ^18.0.0
   sass: ^1.51.0
   unocss: ^0.32.1
@@ -21,6 +22,7 @@ devDependencies:
   '@types/react': 18.0.8
   '@types/react-dom': 18.0.0
   '@vitejs/plugin-react': 1.3.1
+  react-auto-height-transition: 0.1.3_ef5jwxihqo6n7gxfmzogljlgcm
   sass: 1.51.0
   vite: 2.9.6_sass@1.51.0
 
@@ -1902,6 +1904,16 @@ packages:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
     dev: false
+
+  /react-auto-height-transition/0.1.3_ef5jwxihqo6n7gxfmzogljlgcm:
+    resolution: {integrity: sha512-9Br5bAVdf3gHoTsl8wou0kAP+ukfwhegVdgIEEmLttf94CAlsy20UdSMcT7URNmy+ynJ2LIowQZdzAohEzq3Dw==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+    dev: true
 
   /react-dom/18.1.0_react@18.1.0:
     resolution: {integrity: sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w==}

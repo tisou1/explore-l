@@ -1,7 +1,10 @@
-import { useState, useMemo, memo } from 'react'
+import { useState, useMemo, memo, useEffect, useLayoutEffect, useRef } from 'react'
 import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'
 import logo from '../../logo.svg'
+import './createMulPro.scss'
+import usePrevious from '../../hooks/usePrevious'
+import { useCallback } from 'react'
 
 
 
@@ -69,7 +72,7 @@ export default function CreateMulPro(props) {
     setFilterText(value)
   }
   const menu = useMemo(() => (
-    <div className='custom-select-menu'>
+    <div className='custom-select-menu mul-pro'>
       <MultipleMenu />
       <div className='submit-btn'>
         <button onClick={clickHandle}>确定</button>
@@ -90,6 +93,10 @@ export default function CreateMulPro(props) {
           <CustomSelectTrigger selectData={selectData} show={visible} />
         </div>
       </Dropdown>
+
+
+      {/* <CustomMenu/> */}
+
     </div>
   )
 }
@@ -119,35 +126,47 @@ const CustomSelectTrigger = memo((props) => {
 //
 
 function MultipleMenu(props) {
-  const list1 = [
-    { name: 'Purple', },
-    { name: 'yellow', },
-    { name: 'orange', },
-    { name: 'aquamarine', },
+  const list = [
+    { 
+      name: 'Trait Count',
+      key: 'Trait Count',
+      items: [
+        {name: '4', key: '4', count: 100},
+        {name: '5', key: '5', count: 400},
+        {name: '6', key: '6', count: 200},
+      ]
+    },
+    { 
+      name: 'Background',
+      key: 'Background',
+      items: [
+        {name: 'yellow', key: 'yellow', count: 100},
+        {name: 'black', key: 'black', count: 400},
+        {name: 'orange', key: 'orange', count: 200},
+      ]
+    },
+
   ]
-  const list2 = [
-    { name: 'aquamarine2', },
-    { name: 'Purple2', },
-    { name: 'yellow2', },
-    { name: 'orange2', },
-  ]
+
   const onClick = (e) => {
     console.log('click', e);
   }
   return (
     <div className='multipleMenu'>
-       <MultipleSubmenu list={list1} title="test1"/>
+      {/* 循环创建Submenu */}
+      {
+        list.map((item, index) => (
+          <MultipleSubmenu key={item.key} list={item.items} title={item.name}/>
+        ))
+      }
     </div>
   )
 }
 
-// TODO 
-function CustomMenu(props) {
-
-}
-
 function MultipleSubmenu(props) {
   const { list, title } = props
+  const ulRef = useRef(null)
+  const [show, setShow] = useState(false)
   const [filterText, setFilterText] = useState('')
   const filterList = useMemo(() => {
     let templist = []
@@ -160,37 +179,50 @@ function MultipleSubmenu(props) {
     return templist
   }, [filterText])
 
-
   const filterChange = (e) => {
     const { value } = e.target
-    console.log(value);
     setFilterText(value)
   }
+
+  const changeHandle = useCallback((value, index, checked) => {
+    console.log('changeHandle');
+  },[])
+
   return (
-    <div className='MultipleSubmenu'>
-      {
-        true &&
-        <div className='search-input'>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={filterText}
-            onChange={filterChange} />
+
+    <div className='MultipleSubmenu cus-select'>
+      <div onClick={() => { setShow(!show) }} className="trigger">
+        <div className='title'>{title}</div>
+        <div className='picon p-icon-DropDownx2'></div>
+      </div>
+      <div className={`list-content ${show ? 'open' : ''}`} ref={ulRef} >
+        <div className='submenu-content'>
+          {
+            true &&
+            <div className='search-input'>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={filterText}
+                onChange={filterChange} />
+            </div>
+          }
+          <div className='menu-list'>
+            {
+              filterList.map((val, idx) => (
+                <MultipleItem key={idx} item={val} index={idx} changeHandle={changeHandle} />
+              ))
+            }
+          </div>
         </div>
-      }
-      <div className='menu-list'>
-        {
-          filterList.map((val, idx) => (
-            <MultipleItem key={idx} item={val} index={idx} changeHandle={() => console.log('changeHandle')} />
-          ))
-        }
       </div>
     </div>
+
   )
 }
 
-function MultipleItem(props) {
-  // console.log('MultipleItem组件');
+const MultipleItem = memo((props) => {
+  console.log('MultipleItem组件',props);
   const { item, index, changeHandle, avatar } = props
   const [active, setActive] = useState(false)
   const clickHandle = () => {
@@ -222,4 +254,4 @@ function MultipleItem(props) {
 
     </div>
   )
-}
+})
