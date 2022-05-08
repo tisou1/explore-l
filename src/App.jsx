@@ -21,7 +21,7 @@ function App() {
           // 'TradingSelect',
           // 'FloorSelect',
           // 'TimeSelect',
-          // 'PropertiesSelect'
+          'PropertiesSelect'
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}

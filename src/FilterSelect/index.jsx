@@ -28,7 +28,7 @@ function initFn(initState) {
 const initState = {
   categorySelect: [],//多选
   projectSelect: [],//多选
-  propertiesSelect: [{}],//多层级多选
+  propertiesSelect: [],//多层级多选
   statusSelect: [],//多选
   priceSelect: {
     token: '',
@@ -69,6 +69,10 @@ const INTERVALSELECT = [
   'floorSelect'
 ]
 
+const MULTIPLESELECTPRO = [
+  'propertiesSelect'
+]
+
 function FilterSelect(props) {
   const { onChange, selects } = props
   const [count, setCount] = useState(0)
@@ -102,6 +106,12 @@ function FilterSelect(props) {
           ...state,
           [action.type]: action.data
         }
+
+      case 'propertiesSelect':
+          return {
+            ...state,
+            [action.type]: action.data
+          }
 
       case 'clearAll':
         return { ...initState }
@@ -142,6 +152,8 @@ function FilterSelect(props) {
   const showConditions = useMemo(() => {
     let list = []
     let conditions = Object.entries(state)
+    console.log(conditions);
+
     conditions.forEach(([key, value]) => {
       //多选
       if (MULTIPLESELECT.includes(key) && Array.isArray(value)) {
@@ -167,6 +179,15 @@ function FilterSelect(props) {
         )
       }
       //嵌套
+      else if (MULTIPLESELECTPRO.includes(key)) {
+        if(value.length > 0) {
+          let _value = value.map(val => Object.values(val)[0]).flat(1).join(',')
+
+          list.push(
+          <ShowConditionsItem key={key}  value={_value}/>
+          )
+        }
+      }
     })
     console.log(list);
     return list

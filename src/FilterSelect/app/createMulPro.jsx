@@ -44,31 +44,30 @@ export default function CreateMulPro(props) {
   const [selectData, setSelectData] = useState({
     defaultValue: 'all',
     data: list.map(val => ({
-      [val.key]: val.items.map(_ => ''),
+      ...val,
+      items: val.items?.map(v => ({...v, checked: false, show: true}))
     }))
   })
 
 
 
-  const changeHandle = (subType, value, index, checked) => {
+  const changeHandle = (subIndex, subType, item, index, checked) => {
     const list = selectData.data
     // console.log('父组件changeHandle', subType, value, index, checked);
 
-    let parentIndex = list.findIndex(val => Object.keys(val)[0] === subType )
+    // let subIndex = list.findIndex(val => Object.keys(val)[0] === subType )
     let replaceValue = {
-      [subType]: list[parentIndex][subType].map((val, i) => {
+      ...list[subIndex],
+      items: list[subIndex].items?.map((val, i) => {
         if (i === index) {
-          if (checked)
-            return value
-          else
-            return ''
+          return {...val, checked}
         }
         else
           return val
       })
     }
 
-    list[parentIndex] = replaceValue
+    list[subIndex] = replaceValue
     let tempselectData = {
       ...selectData,
       data: list
@@ -77,8 +76,12 @@ export default function CreateMulPro(props) {
   }
 
   const clickHandle = () => {
-    let tempselectData = selectData.data.filter(val => val !== '').join(',')
-    dispatch({ type: type, data: selectData.data.filter(val => val !== '') })
+    let tempselectData = selectData.data?.map(val => ({
+      [val.key]: val.items.filter(v => v.checked).map(v => v.name)
+    }))
+
+    console.log(tempselectData, type);
+    dispatch({ type: type, data: tempselectData })
     // console.log('当前组件的选中值:',tempselectData);
 
     //close
@@ -91,7 +94,7 @@ export default function CreateMulPro(props) {
         {/* 循环创建Submenu */}
         {
           list.map((item, index) => (
-            <MultipleSubmenu key={item.key} subType={item.key} list={item.items} title={item.name} onChange={changeHandle} />
+            <MultipleSubmenu key={item.key} subType={item.key} subIndex={index} list={item.items} title={item.name} onChange={changeHandle} />
           ))
         }
       </div>
@@ -127,23 +130,19 @@ const CustomSelectTrigger = memo((props) => {
 
   const showWhichOrigin = useMemo(() => {
     let showWhich = []
-    let flag = false
 
-    selectData.data.forEach(v => {
-      //这个对象中只有一个key,一个value
-      v[Object.keys(v)[0]].forEach(val => {
-        if (val !== '') {
-          showWhich.push(val)
-          flag = true
-        }
-      })
+    selectData.data.forEach(val => {
+     val.items.forEach(v => {
+       if(v.checked)
+        showWhich.push(v.name)
+     })
     })
 
-    if (flag) {
-      return showWhich.join(',')
-    } else {
-      return selectData.defaultValue
-    }
+
+    if(showWhich.length === 0) 
+        return selectData.defaultValue
+    else 
+    return showWhich.join(',')
   })
 
 
@@ -157,7 +156,7 @@ const CustomSelectTrigger = memo((props) => {
 
 
 function MultipleSubmenu(props) {
-  const { list, title, subType, onChange } = props
+  const { list, title, ...reset} = props
   const ulRef = useRef(null)
   const [show, setShow] = useState(false)
   const [filterText, setFilterText] = useState('')
@@ -218,7 +217,7 @@ function MultipleSubmenu(props) {
           <div className='menu-list'>
             {
               filterList.map((val, idx) => (
-                <MultipleItem key={idx} item={val} type={subType} index={idx} changeHandle={onChange} />
+                <MultipleItem key={idx} item={val} index={idx} {...reset} />
               ))
             }
           </div>
@@ -231,10 +230,10 @@ function MultipleSubmenu(props) {
 
 const MultipleItem = memo((props) => {
   // console.log('MultipleItem组件', props);
-  const { item, index, changeHandle, avatar, type } = props
+  const { item, index, avatar, onChange: changeHandle, subIndex ,subType } = props
   const [active, setActive] = useState(false)
   const clickHandle = () => {
-    changeHandle(type, item.name, index, !active)
+    changeHandle(subIndex, subType, item, index, !active)
     setActive(!active)
   }
   return (
