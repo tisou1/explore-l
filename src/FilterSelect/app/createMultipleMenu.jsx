@@ -20,36 +20,33 @@ export default function CreateMultipleMenu(props) {
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
     defaultValue: 'all',
-    data: list.map(_ => '')
+    data: list.map(val => ({...val, checked: false, show: true}))
   })
   const [filterText, setFilterText] = useState('')
 
 
   const filterList = useMemo(() => {
     let templist = []
-    list.forEach((item) => {
+    selectData.data?.forEach((item) => {
       if (!item.name.includes(filterText)) {
+        templist.push({...item, show: false})
         return
       }
-
-      templist.push(item)
+      templist.push({...item, show: true})
     });
     return templist
   }, [filterText])
   //过滤数据
 
+  console.log(filterList)
 
-  const changeHandle = (value, index, checked) => {
+  const changeHandle = (item, index, checked) => {
 
     let tempselectData = {
       ...selectData,
       data: selectData.data.map((val, i) => {
-        if (i === index) {
-          if (checked)
-            return value
-          else
-            return ''
-        }
+        if (i === index) 
+          return {...val, checked}
         else
           return val
       })
@@ -58,20 +55,22 @@ export default function CreateMultipleMenu(props) {
   }
 
   const clickHandle = () => {
-    let tempselectData = selectData.data.filter(val => val !== '').join(',')
-    dispatch({ type: type, data: selectData.data.filter(val => val !== '') })
-    // console.log('当前组件的选中值:',tempselectData);
+    let tempselectData = selectData.data.filter(val => val.checked).map(val => val.name)
+    dispatch({ type: type, data: tempselectData })
 
     //close
     setVisible(false)
+    //clear inpout
+    // setFilterText('')
+
   }
 
   const filterChange = (e) => {
     const { value } = e.target
-    console.log(value);
+    // console.log(value);
     setFilterText(value)
   }
-  const menu = useMemo(() => (
+  const menu =  (
     <div className='custom-select-menu'>
       {
         search &&
@@ -87,6 +86,7 @@ export default function CreateMultipleMenu(props) {
       <div className='menu-list'>
         {
           filterList.map((val, idx) => (
+            val.show &&
             <MultipleItem key={val + idx} item={val} index={idx} avatar={avatar} changeHandle={changeHandle} />
           ))
         }
@@ -95,7 +95,7 @@ export default function CreateMultipleMenu(props) {
         <button onClick={clickHandle}>确定</button>
       </div>
     </div>
-  ), [selectData, filterText])
+  )
   return (
     <div className='wrap-dropdown'>
         <div className='dropdown-title mb-3'>{title}</div>
@@ -120,18 +120,19 @@ const CustomSelectTrigger = memo((props) => {
   // console.log('CustomSelect组件',props.selectData);
   const { selectData, show } = props
 
-  const showWhichOrigin = useMemo(() => {
-    let flag = selectData.data.some(val => val !== '')
-    if (flag) {
-      return selectData.data.filter(val => val !== '').join(',')
-    } else {
+  const showWhichOrigin = () => {
+
+    let list = selectData.data.filter(val => val.checked)
+                .map(val => val.name)
+    if(list.length === 0) 
       return selectData.defaultValue
-    }
-  }, [selectData.data])
+    else 
+      return list.join(',')
+  }
 
   return (
     <div className='custom-select-mul'>
-      <div className='select-value'>{showWhichOrigin}</div>
+      <div className='select-value'>{showWhichOrigin()}</div>
       <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
     </div>
   )
@@ -141,10 +142,10 @@ const CustomSelectTrigger = memo((props) => {
 function MultipleItem(props) {
   // console.log('MultipleItem组件');
   const { item, index, changeHandle, avatar } = props
-  const [active, setActive] = useState(false)
-  console.log(active);
+  const [active, setActive] = useState(item.checked)
+  // console.log(active);
   const clickHandle = () => {
-    changeHandle(item.name, index, !active)
+    changeHandle(item, index, !active)
     setActive(!active)
   }
   return (
