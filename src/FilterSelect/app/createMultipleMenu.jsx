@@ -38,7 +38,6 @@ export default function CreateMultipleMenu(props) {
   }, [filterText])
   //过滤数据
 
-  console.log(filterList)
 
   const changeHandle = (item, index, checked) => {
 

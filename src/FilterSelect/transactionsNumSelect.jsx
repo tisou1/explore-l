@@ -7,7 +7,7 @@ export default function TransactionsNumSelect(props) {
     { name: '交易' },
   ]
   return (
-    <CreateInterval {...props} title="交易数" icon={false}  type="transactionsNumSelect" />
+    <CreateInterval {...props} title="24小时交易数" icon={false}  type="transactionsNumSelect" />
   )
 }
 

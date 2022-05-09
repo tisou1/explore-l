@@ -7,7 +7,7 @@ export default function PriceSelect(props) {
     { name: '交易' },
   ]
   return (
-    <CreateInterval {...props} title="priceSelect"  type="priceSelect" />
+    <CreateInterval {...props} title="区间价格"  type="priceSelect" />
   )
 }
 

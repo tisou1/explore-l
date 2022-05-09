@@ -152,8 +152,7 @@ function FilterSelect(props) {
   const showConditions = useMemo(() => {
     let list = []
     let conditions = Object.entries(state)
-    console.log(conditions);
-
+    
     conditions.forEach(([key, value]) => {
       //多选
       if (MULTIPLESELECT.includes(key) && Array.isArray(value)) {

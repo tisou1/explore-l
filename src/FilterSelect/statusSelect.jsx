@@ -7,7 +7,7 @@ export default function StatusSelect(props) {
     { name: '有报价' },
   ]
   return (
-    <CreateMultipleMenu {...props} list={list} title="statusSelect" type="statusSelect" avatar={false}/>
+    <CreateMultipleMenu {...props} list={list} title="状态" type="statusSelect" avatar={false}/>
   )
 }
 

@@ -80,7 +80,7 @@ export default function CreateMulPro(props) {
       [val.key]: val.items.filter(v => v.checked).map(v => v.name)
     }))
 
-    console.log(tempselectData, type);
+    // console.log(tempselectData, type);
     dispatch({ type: type, data: tempselectData })
     // console.log('当前组件的选中值:',tempselectData);
 
@@ -177,7 +177,7 @@ function MultipleSubmenu(props) {
   }
 
   const changeHandle = useCallback((type, value, index, checked) => {
-    console.log('changeHandle', type, value, index, checked);
+    // console.log('changeHandle', type, value, index, checked);
 
     // let tempselectData = {
     //   ...selectData,
