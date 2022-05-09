@@ -86,7 +86,7 @@ export default function CreateMulPro(props) {
     // dispatch({ type: type, data: tempselectData })
     // console.log('当前组件的选中值:',tempselectData);
 
-    dispatchFilter({ [type]: tempSelectData })(dispatch)
+    dispatchFilter({ [type]: tempselectData })(dispatch)
 
     //close
     setVisible(false)
