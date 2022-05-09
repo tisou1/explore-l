@@ -1,11 +1,15 @@
 import { useState, useMemo, memo } from 'react'
+import { useDispatch } from 'react-redux'
+import { dispatchFilter } from '~/store'
 import { Dropdown } from 'antd'
 import './createInterval.scss'
 
 
 export default function CreateSignal(props) {
+  const dispatch = useDispatch()
+
   const {
-    dispatch,
+    // dispatch,
     type,
     title,
     list = [],
@@ -18,7 +22,10 @@ export default function CreateSignal(props) {
 
 
   const chnageHandle = (val) => {
-    dispatch({ type: type, data: val })
+    // dispatch({ type: type, data: val })
+
+    dispatchFilter({ [type]: val })(dispatch)
+
     setSelectData(val)
     setVisible(false)
   }

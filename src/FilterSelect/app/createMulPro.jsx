@@ -1,4 +1,6 @@
 import { useState, useMemo, memo, useEffect, useLayoutEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { dispatchFilter } from '~/store'
 import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'
 import logo from '../logo.svg'
@@ -9,8 +11,9 @@ import { useCallback } from 'react'
 
 
 export default function CreateMulPro(props) {
+  const dispatch = useDispatch()
   const {
-    dispatch,
+    // dispatch,
     search = false,
     avatar = true,
     // list,
@@ -81,8 +84,10 @@ export default function CreateMulPro(props) {
     }))
 
     // console.log(tempselectData, type);
-    dispatch({ type: type, data: tempselectData })
+    // dispatch({ type: type, data: tempselectData })
     // console.log('当前组件的选中值:',tempselectData);
+
+    dispatchFilter({ [type]: tempSelectData })(dispatch)
 
     //close
     setVisible(false)

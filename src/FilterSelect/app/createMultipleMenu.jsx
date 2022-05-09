@@ -4,12 +4,16 @@ import { Dropdown } from 'antd'
 // import MultipleItem from './multipleItem'
 import './createMultipleMenu.scss'
 import logo from '../logo.svg'
+import { useDispatch } from 'react-redux'
+import { dispatchFilter } from '~/store'
 
 
 
 export default function CreateMultipleMenu(props) {
+  const dispatch = useDispatch()
+
   const { 
-    dispatch, 
+    // dispatch, 
     search=false, 
     avatar=true,
     list, 
@@ -55,7 +59,9 @@ export default function CreateMultipleMenu(props) {
 
   const clickHandle = () => {
     let tempselectData = selectData.data.filter(val => val.checked).map(val => val.name)
-    dispatch({ type: type, data: tempselectData })
+    // dispatch({ type: type, data: tempselectData })
+
+    dispatchFilter({[type]: tempselectData})(dispatch)
 
     //close
     setVisible(false)

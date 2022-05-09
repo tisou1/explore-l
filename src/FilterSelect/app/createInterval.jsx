@@ -1,4 +1,6 @@
 import { useState, useMemo, memo } from 'react'
+import { useDispatch } from 'react-redux'
+import { dispatchFilter } from '~/store'
 import { Dropdown } from 'antd'
 import './createInterval.scss'
 
@@ -10,8 +12,10 @@ const list = [
 ]
 
 export default function CreateInterval(props) {
+  const dispatch = useDispatch()
+
   const {
-    dispatch,
+    // dispatch,
     type,
     title,
     icon = true,
@@ -27,13 +31,17 @@ export default function CreateInterval(props) {
 
   const clickHandle = () => {
     //TODO 校验数据
-    dispatch({
-      type: type, data: {
-        token: selectData.token,
-        min: selectData.min,
-        max: selectData.max
-      }
-    })
+    let tempSelectData = {
+      token: selectData.token,
+      min: selectData.min,
+      max: selectData.max
+    }
+    // dispatch({
+    //   type: type, 
+    //   data:tempSelectData
+    // })
+    dispatchFilter({ [type]: tempSelectData })(dispatch)
+
     //close
     setVisible(false)
   }
@@ -41,8 +49,8 @@ export default function CreateInterval(props) {
   const menu = useMemo(() => (
     <div className='custom-select-menu'>
       {
-        icon && 
-          <TokenItem list={list} tokenChange={(token) => setSelectData({ ...selectData, token })} icon={icon} />
+        icon &&
+        <TokenItem list={list} tokenChange={(token) => setSelectData({ ...selectData, token })} icon={icon} />
       }
 
       <div className='min-max'>
@@ -66,7 +74,7 @@ export default function CreateInterval(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon}/>
+          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon} />
         </div>
       </Dropdown>
     </div>

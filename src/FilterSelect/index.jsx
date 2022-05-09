@@ -18,7 +18,7 @@ import PropertiesSelect from './propertiesSelect'
 
 import './index.scss'
 import { useMemo } from 'react'
-
+import { useDispatch, useSelector} from 'react-redux'
 
 function initFn(initState) {
   return {
