@@ -22,7 +22,10 @@
         align-items: center;
         font-size: 12px;
         color: rgba(0, 0, 0, 0.6);
-
+        img{
+          width: 24px;
+          height: 24px;
+        }
         &.active {
           color: #000;
           font-weight: 600;

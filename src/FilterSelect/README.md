@@ -2,7 +2,10 @@
 
 > 目前是接收两个属性`onChange`,`selects`
 - `onChange`是条件改变之后的回调事件,该事件接收`state`
-- `selects`传入一个数组,制定要使用那些内部组件.
+- `selects`传入一个数组,指定要使用那些内部组件.
+
+
+## selects可选值
 
 ### 一层多选
 `CategorySelect(类别)`, `ProjectSelect(项目)`,  `StatusSelect(状态)`,   `EventSelect(事件)`
@@ -12,10 +15,13 @@
 
 ### 单选
 `TimeSelect(时间)`,
+
+### 两层多选
+`PropertiesSelect(属性)`
            
 
 
-```diff
+```jsx
   import FilterSelect from '**/FilterSelect'
   export default function () {
     const changeHandle = (state) => {
@@ -29,13 +35,14 @@
           selects={[
             'CategorySelect',
             'ProjectSelect',
+            'PropertiesSelect',
             'StatusSelect',
             'EventSelect',
             'TimeSelect',
-+           'PriceSelect',
-+           'TransactionsNumSelect',
-+           'TradingSelect',
-+           'FloorSelect'
+            'PriceSelect',
+            'TransactionsNumSelect',
+            'TradingSelect',
+            'FloorSelect'
           ]}
           />
       </div>

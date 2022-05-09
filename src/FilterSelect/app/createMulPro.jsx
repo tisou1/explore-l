@@ -5,7 +5,6 @@ import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'
 import logo from '../logo.svg'
 import './createMulPro.scss'
-import usePrevious from '../../hooks/usePrevious'
 import { useCallback } from 'react'
 
 
