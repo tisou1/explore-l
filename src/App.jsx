@@ -14,6 +14,7 @@ function App() {
         selects={[
           'CategorySelect',
           'ProjectSelect',
+          'PropertiesSelect',
           'StatusSelect',
           "EventSelect",
           'PriceSelect',
@@ -21,7 +22,6 @@ function App() {
           'TradingSelect',
           'FloorSelect',
           'TimeSelect',
-          'PropertiesSelect'
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}
