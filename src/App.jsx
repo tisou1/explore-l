@@ -3,6 +3,7 @@ import logo from './logo.svg'
 import Filtering from './Filtering'
 import { useLatest, usePrevious } from './hooks'
 import FilterSelect from './FilterSelect'
+import ShowFilterConditions from './ShowFilterConditions'
 function App() {
   const changeHandle = (state) => {
     console.log('state:',state);
@@ -15,16 +16,18 @@ function App() {
           'CategorySelect',
           'ProjectSelect',
           'PropertiesSelect',
-          'StatusSelect',
-          "EventSelect",
+          // 'StatusSelect',
+          // "EventSelect",
           'PriceSelect',
-          'TransactionsNumSelect',
-          'TradingSelect',
-          'FloorSelect',
-          'TimeSelect',
+          // 'TransactionsNumSelect',
+          // 'TradingSelect',
+          // 'FloorSelect',
+          // 'TimeSelect',
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}
       {/* <Counter/> */}
+
+      <ShowFilterConditions />
     </div>
   )
 }

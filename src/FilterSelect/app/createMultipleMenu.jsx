@@ -1,10 +1,8 @@
 import { useState, useMemo, memo } from 'react'
 import { Dropdown } from 'antd'
-// import CustomSelectTrigger from './customSelectTrigger'
-// import MultipleItem from './multipleItem'
 import './createMultipleMenu.scss'
 import logo from '../logo.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { dispatchFilter } from '~/store'
 
 
@@ -13,7 +11,7 @@ export default function CreateMultipleMenu(props) {
   const dispatch = useDispatch()
 
   const { 
-    // dispatch, 
+    defaultValue = 'all',
     search=false, 
     avatar=true,
     list, 
@@ -59,7 +57,6 @@ export default function CreateMultipleMenu(props) {
 
   const clickHandle = () => {
     let tempselectData = selectData.data.filter(val => val.checked).map(val => val.name)
-    // dispatch({ type: type, data: tempselectData })
 
     dispatchFilter({[type]: tempselectData})(dispatch)
 
@@ -112,7 +109,7 @@ export default function CreateMultipleMenu(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} />
+          <CustomSelectTrigger  show={visible} type={type} defaultValue={defaultValue} />
         </div>
       </Dropdown>
     </div>
@@ -122,22 +119,17 @@ export default function CreateMultipleMenu(props) {
 
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
+  const filterState = useSelector(state => state.filterSelect)
+
   // console.log('CustomSelect组件',props.selectData);
-  const { selectData, show } = props
+  const { selectData, show , type, defaultValue} = props
 
-  const showWhichOrigin = () => {
+  const showTitle = () => filterState[type].length === 0 ? defaultValue : filterState[type].join(',')
 
-    let list = selectData.data.filter(val => val.checked)
-                .map(val => val.name)
-    if(list.length === 0) 
-      return selectData.defaultValue
-    else 
-      return list.join(',')
-  }
 
   return (
     <div className='custom-select-mul'>
-      <div className='select-value'>{showWhichOrigin()}</div>
+      <div className='select-value'>{showTitle()}</div>
       <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
     </div>
   )

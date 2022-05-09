@@ -1,6 +1,6 @@
 import { useState, useMemo, memo } from 'react'
-import { useDispatch } from 'react-redux'
 import { dispatchFilter } from '~/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown } from 'antd'
 import './createInterval.scss'
 
@@ -16,6 +16,7 @@ export default function CreateInterval(props) {
 
   const {
     // dispatch,
+    defaultValue = '-',
     type,
     title,
     icon = true,
@@ -74,7 +75,7 @@ export default function CreateInterval(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon} />
+          <CustomSelectTrigger show={visible} icon={icon} type={type} defaultValue={defaultValue} />
         </div>
       </Dropdown>
     </div>
@@ -120,19 +121,22 @@ const TokenItem = (props) => {
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
   // console.log('CustomSelect组件',props.selectData);
-  const { selectData, show, icon } = props
+  const filterState = useSelector(state => state.filterSelect)
 
-  const showWhichOrigin = useMemo(() => {
-    let obj = {}
-    obj.token = selectData.token
-    let flag = selectData.min && selectData.max
-    if (flag) {
-      obj.name = `${selectData.min} ~ ${selectData.max}`
-    } else {
-      obj.name = '-'
-    }
-    return obj
-  }, [selectData.min, selectData.max, selectData.token])
+  const { show, icon, type, defaultValue } = props
+  const showWhichOrigin = () => {
+    let item = filterState[type]
+    return item.min  && item.max 
+      ? {
+        name: `${item.min} ~ ${item.max}`,
+        token: item.token
+      }
+      : {
+        name: defaultValue,
+        token: 'p-icon-USD'
+      }
+  }
+  console.log(showWhichOrigin());
 
   return (
     <div className='custom-select-int'>
@@ -141,11 +145,11 @@ const CustomSelectTrigger = memo((props) => {
           icon &&
           <div className='token-name'>
             <svg className="icon" aria-hidden="true">
-              <use xlinkHref={'#' + showWhichOrigin.token}></use>
+              <use xlinkHref={'#' + showWhichOrigin().token}></use>
             </svg>
           </div>
         }
-        <span>{showWhichOrigin.name}</span>
+        <span>{showWhichOrigin().name}</span>
       </div>
       <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
     </div>

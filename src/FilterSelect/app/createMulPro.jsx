@@ -1,6 +1,6 @@
 import { useState, useMemo, memo, useEffect, useLayoutEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
 import { dispatchFilter } from '~/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'
 import logo from '../logo.svg'
@@ -17,7 +17,8 @@ export default function CreateMulPro(props) {
     avatar = true,
     // list,
     type,
-    title
+    title,
+    defaultValue = 'all',
   } = props
 
   const list = [
@@ -121,7 +122,7 @@ export default function CreateMulPro(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} />
+          <CustomSelectTrigger selectData={selectData} show={visible} type={type} defaultValue={defaultValue} />
         </div>
       </Dropdown>
     </div>
@@ -130,29 +131,34 @@ export default function CreateMulPro(props) {
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
   // console.log('CustomSelect组件',props.selectData);
-  const { selectData, show } = props
+  const filterState = useSelector(state => state.filterSelect)
+  const { selectData, show, type, defaultValue } = props
 
-  const showWhichOrigin = useMemo(() => {
-    let showWhich = []
+  // const showWhichOrigin = useMemo(() => {
+  //   let showWhich = []
 
-    selectData.data.forEach(val => {
-     val.items.forEach(v => {
-       if(v.checked)
-        showWhich.push(v.name)
-     })
-    })
+  //   selectData.data.forEach(val => {
+  //    val.items.forEach(v => {
+  //      if(v.checked)
+  //       showWhich.push(v.name)
+  //    })
+  //   })
 
 
-    if(showWhich.length === 0) 
-        return selectData.defaultValue
-    else 
-    return showWhich.join(',')
-  })
+  //   if(showWhich.length === 0) 
+  //       return selectData.defaultValue
+  //   else 
+  //   return showWhich.join(',')
+  // })
+
+  const showWhichOrigin = () => {
+  return  filterState[type].length === 0 ? defaultValue : filterState[type].join(',')
+  }
 
 
   return (
     <div className='custom-select-mul'>
-      <div className='select-value'>{showWhichOrigin}</div>
+      <div className='select-value'>{showWhichOrigin()}</div>
       <div className={`picon p-icon-DropDownx1 ${show ? 'rotate' : ''}`}></div>
     </div>
   )

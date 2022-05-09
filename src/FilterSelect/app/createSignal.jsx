@@ -1,5 +1,5 @@
 import { useState, useMemo, memo } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { dispatchFilter } from '~/store'
 import { Dropdown } from 'antd'
 import './createInterval.scss'
@@ -13,7 +13,7 @@ export default function CreateSignal(props) {
     type,
     title,
     list = [],
-    defaultValue,
+    defaultValue = '7D',
     icon = false
   } = props
 
@@ -47,7 +47,7 @@ export default function CreateSignal(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon} />
+          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon} type={type} defaultValue={defaultValue}/>
         </div>
       </Dropdown>
     </div>
@@ -93,9 +93,11 @@ const CustomOption = (props) => {
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
   // console.log('CustomSelect组件',props.selectData);
-  const { selectData, show, icon } = props
+  const filterState = useSelector(state => state.filterSelect)
 
-  const showWhichOrigin = useMemo(() => ({ name: selectData }), [selectData])
+  const { selectData, show, icon, type, defaultValue } = props
+
+  const showWhichOrigin = useMemo(() => ({ name: filterState[type] || defaultValue }), [filterState[type]])
 
   return (
     <div className='custom-select-int'>
