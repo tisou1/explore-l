@@ -3,6 +3,7 @@
 import React, { useState,  useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { dispatchFilter } from '~/store'
+import './index.scss'
 
 const MULTIPLESELECT = [
   'categorySelect',
@@ -76,8 +77,6 @@ export default function ShowFilterConditions(props) {
     return list
   })()
   return (
-    <div className='filter-select-main'>
-
       <div className='filter-select-show mt-6'>
         {showConditions}
         {
@@ -87,7 +86,6 @@ export default function ShowFilterConditions(props) {
           </div>
         }
       </div>
-    </div>
   )
 }
 
