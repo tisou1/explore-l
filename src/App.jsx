@@ -14,14 +14,14 @@ function App() {
         onChange={changeHandle} 
         selects={[
           'CategorySelect',
-          // 'ProjectSelect',
+          'ProjectSelect',
           'PropertiesSelect',
-          // 'StatusSelect',
-          // "EventSelect",
-          // 'PriceSelect',
-          // 'TransactionsNumSelect',
-          // 'TradingSelect',
-          // 'FloorSelect',
+          'StatusSelect',
+          "EventSelect",
+          'PriceSelect',
+          'TransactionsNumSelect',
+          'TradingSelect',
+          'FloorSelect',
           'TimeSelect',
         ]}/>
       {/* <Filtering selectList={list} onChange={changeValue}/> */}

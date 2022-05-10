@@ -26,6 +26,7 @@ const initState = {
     max: '',
   },//类型&区间
   eventSelect: [],//多选
+  search: '',//搜索框
 }
 
 

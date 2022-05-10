@@ -116,7 +116,7 @@ export default function CreateMultipleMenu(props) {
   )
   return (
     <div className='wrap-dropdown'>
-        <div className='dropdown-title mb-3'>{title}</div>
+        <div className='dropdown-title'>{title}</div>
       <Dropdown
         trigger={['click']}
         overlay={menu}

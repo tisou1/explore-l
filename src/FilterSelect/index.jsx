@@ -1,7 +1,8 @@
 
 
 import React, { useMemo,useEffect, useState, useReducer } from 'react'
-import { useSelector} from 'react-redux'
+import { dispatchFilter } from '~/store'
+import { useDispatch, useSelector } from 'react-redux'
 
 import CategorySelect from './categorySelect'
 import ProjectSelect from './projectSelect'
@@ -23,6 +24,7 @@ import './index.scss'
 
 function FilterSelect(props) {
   const filterState = useSelector(state => state.filterSelect)
+  const dispatch = useDispatch()
   const { onChange, selects } = props
 
   useEffect(() => {
@@ -54,6 +56,8 @@ function FilterSelect(props) {
 
   const searchChange = (e) => {
     console.log(e.target.value)
+    dispatchFilter({ 'search': e.target.value })(dispatch)
+
   }
 
   return (
