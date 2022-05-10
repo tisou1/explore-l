@@ -11,6 +11,8 @@ import { useCallback } from 'react'
 
 export default function CreateMulPro(props) {
   const dispatch = useDispatch()
+  const filterState = useSelector(state => state.filterSelect)
+
   const {
     // dispatch,
     search = false,
@@ -43,14 +45,39 @@ export default function CreateMulPro(props) {
 
   ]
 
+
+
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
     defaultValue: 'all',
     data: list.map(val => ({
       ...val,
-      items: val.items?.map(v => ({...v, checked: false, show: true}))
+      items: val.items?.map(v => ({ ...v, checked: false, show: true }))
     }))
   })
+
+  useEffect(() => {
+    // console.log(filterState[type],type)
+    if (filterState[type].length === 0) {
+      setSelectData({
+        ...selectData,
+        data: list.map(val => ({
+          ...val,
+          items: val.items?.map(v => ({ ...v, checked: false, show: true }))
+        }))
+      })
+    } 
+    // else if (filterState[type].length > 0) {
+     
+    //   setSelectData({
+    //     ...selectData,
+    //     data: list.map(val => ({
+    //       ...val,
+    //       items: val.items?.map(v => ({ ...v, checked:  filterState[type][val.key]?.length > 0 ? true : false, show: true }))
+    //     }))
+    //   })
+    // }
+  }, [filterState])
 
 
 
@@ -63,7 +90,7 @@ export default function CreateMulPro(props) {
       ...list[subIndex],
       items: list[subIndex].items?.map((val, i) => {
         if (i === index) {
-          return {...val, checked}
+          return { ...val, checked }
         }
         else
           return val
@@ -98,7 +125,7 @@ export default function CreateMulPro(props) {
       <div className='multipleMenu'>
         {/* 循环创建Submenu */}
         {
-          list.map((item, index) => (
+          selectData.data?.map((item, index) => (
             <MultipleSubmenu key={item.key} subType={item.key} subIndex={index} list={item.items} title={item.name} onChange={changeHandle} />
           ))
         }
@@ -152,7 +179,7 @@ const CustomSelectTrigger = memo((props) => {
   // })
 
   const showWhichOrigin = () => {
-  return  filterState[type].length === 0 ? defaultValue : filterState[type].join(',')
+    return filterState[type].length === 0 ? defaultValue : filterState[type].map(val => Object.values(val)[0]).join(',')
   }
 
 
@@ -166,11 +193,11 @@ const CustomSelectTrigger = memo((props) => {
 
 
 function MultipleSubmenu(props) {
-  const { list, title, ...reset} = props
+  const { list, title, ...reset } = props
   const ulRef = useRef(null)
   const [show, setShow] = useState(false)
   const [filterText, setFilterText] = useState('')
-  const filterList = useMemo(() => {
+  const filterList = (() => {
     let templist = []
     list.forEach((item) => {
       if (!item.name.includes(filterText)) {
@@ -179,31 +206,14 @@ function MultipleSubmenu(props) {
       templist.push(item)
     });
     return templist
-  }, [filterText])
+  })()
+
 
   const filterChange = (e) => {
     const { value } = e.target
     setFilterText(value)
   }
 
-  const changeHandle = useCallback((type, value, index, checked) => {
-    // console.log('changeHandle', type, value, index, checked);
-
-    // let tempselectData = {
-    //   ...selectData,
-    //   data: selectData.data.map((val, i) => {
-    //     if (i === index) {
-    //       if (checked)
-    //         return value
-    //       else
-    //         return ''
-    //     }
-    //     else
-    //       return val
-    //   })
-    // }
-    // setSelectData(tempselectData)
-  }, [])
 
   return (
 
@@ -240,8 +250,12 @@ function MultipleSubmenu(props) {
 
 const MultipleItem = memo((props) => {
   // console.log('MultipleItem组件', props);
-  const { item, index, avatar, onChange: changeHandle, subIndex ,subType } = props
-  const [active, setActive] = useState(false)
+  const { item, index, avatar, onChange: changeHandle, subIndex, subType } = props
+  const [active, setActive] = useState(item.checked)
+  useEffect(() => {
+    setActive(item.checked)
+  },[item.checked])
+
   const clickHandle = () => {
     changeHandle(subIndex, subType, item, index, !active)
     setActive(!active)

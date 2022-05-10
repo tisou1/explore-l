@@ -1,4 +1,7 @@
+import { useRef } from 'react'
 import CreateMulPro from "./app/createMulPro";
+import { useSelector, useDispatch } from 'react-redux'
+import { dispatchFilter } from '~/store'
 
 
 const list = [
@@ -12,7 +15,23 @@ const list = [
 
 
 export default function PropertiesSelect(props) {
+  const filterState = useSelector(state => state.filterSelect)
+  const dispatch = useDispatch()
+  const { projectSelect, propertiesSelect } = filterState
+
+  const showComponent = useRef(true)
+
+  if(projectSelect.length === 1) {
+    showComponent.current = false
+    if(propertiesSelect.length > 0)
+      dispatchFilter({ subType: 'propertiesSelect'})(dispatch)
+  } else {
+    showComponent.current = true
+  }
+
   return (
-    <CreateMulPro {...props} list={list} defaultValue="all" title="属性" type="propertiesSelect"/>
+      showComponent.current ?
+      <CreateMulPro {...props} list={list} defaultValue="all" title="属性" type="propertiesSelect"/>
+      : null
   )
 }

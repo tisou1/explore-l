@@ -76,13 +76,14 @@ export default function ShowFilterConditions(props) {
     console.log(list);
     return list
   })()
+  
   return (
       <div className='filter-select-show mt-6'>
         {showConditions}
         {
           showConditions.length > 0 && 
           <div className='clearAll' onClick={clearAll}>
-            clearAll
+            ClearAll
           </div>
         }
       </div>

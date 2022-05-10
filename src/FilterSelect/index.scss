@@ -1,9 +1,13 @@
 .filter-select-main{
   .filter-select-list{
-    max-width: 800px;
+    width: 100%;
     display: flex;
     flex-flow: row wrap;
     gap: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
   }
   .wrap-dropdown{
     flex: auto;
@@ -14,5 +18,24 @@
     }
   }
 
-
+  .search-input {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 12px;
+    .p-icon-Searchn{
+      font-size: 20px;
+      color: #F6D353;
+      margin-right: 4px;
+    }
+    input{
+      font-size: 14px;
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+  }
 }

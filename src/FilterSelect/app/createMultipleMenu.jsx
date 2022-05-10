@@ -1,14 +1,16 @@
-import { useState, useMemo, memo } from 'react'
+import { useState, useMemo, memo, useRef } from 'react'
 import { Dropdown } from 'antd'
 import './createMultipleMenu.scss'
 import logo from '../logo.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { dispatchFilter } from '~/store'
+import { useEffect } from 'react'
 
 
 
 export default function CreateMultipleMenu(props) {
   const dispatch = useDispatch()
+  const filterState = useSelector(state => state.filterSelect)
 
   const { 
     defaultValue = 'all',
@@ -20,14 +22,25 @@ export default function CreateMultipleMenu(props) {
   } = props
 
   const [visible, setVisible] = useState(false)
-  const [selectData, setSelectData] = useState({
+  const [selectData, setSelectData] = useState(() => ({
     defaultValue: 'all',
     data: list.map(val => ({...val, checked: false, show: true}))
-  })
+  }))
   const [filterText, setFilterText] = useState('')
 
 
-  const filterList = useMemo(() => {
+  useEffect(() => {
+    // console.log(filterState[type],type)
+    if(filterState[type].length === 0) {
+      setSelectData({
+        ...selectData,
+        data: list.map(val => ({...val, checked: false, show: true}))
+      })
+    }
+  },[filterState])
+
+
+  const filterList = (() => {
     let templist = []
     selectData.data?.forEach((item) => {
       if (!item.name.includes(filterText)) {
@@ -37,7 +50,7 @@ export default function CreateMultipleMenu(props) {
       templist.push({...item, show: true})
     });
     return templist
-  }, [filterText])
+  })()
   //过滤数据
 
 
@@ -52,6 +65,7 @@ export default function CreateMultipleMenu(props) {
           return val
       })
     }
+    // console.log(tempselectData);
     setSelectData(tempselectData)
   }
 
@@ -72,6 +86,8 @@ export default function CreateMultipleMenu(props) {
     // console.log(value);
     setFilterText(value)
   }
+
+
   const menu =  (
     <div className='custom-select-menu'>
       {
@@ -140,7 +156,10 @@ function MultipleItem(props) {
   // console.log('MultipleItem组件');
   const { item, index, changeHandle, avatar } = props
   const [active, setActive] = useState(item.checked)
-  // console.log(active);
+  useEffect(() => {
+    setActive(item.checked)
+  },[item.checked])
+
   const clickHandle = () => {
     changeHandle(item, index, !active)
     setActive(!active)

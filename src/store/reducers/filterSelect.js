@@ -30,7 +30,6 @@ const initState = {
 
 
 const filterSelect = (state = initState, action) => {
-  console.log('filterSelect reducer', action)
   // switch (action.type) {
   //     case types.FILTER_SELECT:
   //         return {
