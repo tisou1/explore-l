@@ -17,7 +17,7 @@ function App() {
     setCount(count)
   }
   return (
-    <div className={'container-app w-[1200px] mx-auto '}>
+    <div className={'container-app w-full lg:w-[1200px] mx-auto '}>
 
       <div>
         {count.value}

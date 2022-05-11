@@ -3,6 +3,7 @@
 import React, { useMemo, useEffect, useState, useRef, useCallback } from 'react'
 import { dispatchFilter } from '@/store'
 import { useDispatch, useSelector } from 'react-redux'
+import { Modal } from 'antd'
 
 import CategorySelect from './categorySelect'
 import ProjectSelect from './projectSelect'
@@ -27,6 +28,8 @@ function FilterSelect(props) {
   const dispatch = useDispatch()
   const { onChange, selects } = props
   const [show, setShow] = useState(true)
+  const [mbShow, setmbShow] = useState(false)
+
 
   useEffect(() => {
     onChange(filterState)
@@ -87,10 +90,33 @@ function FilterSelect(props) {
           }
         </div>
       </div>
+
+      {/* mb */}
+      <div className='select-container-mb'>
+        <div className='filter-select-header'>
+          <div className='header-left'>Sift</div>
+          <div className='header-right' onClick={() => setmbShow(!mbShow)}>
+            <span className='num'>{selectComponentList.length}</span>
+            <span className='picon p-icon-Sift'></span>
+          </div>
+        </div>
+        <Modal visible={mbShow} onCancel={() => setmbShow(false)}>
+          <div className={`filter-select-list-mb ${show ? '' : 'hidden'}`} >
+            {
+              selectComponentList.map((component) => (
+                component
+              ))
+            }
+          </div>
+        </Modal>
+      </div>
+
+
       <div className='search-input'>
         <span className='picon p-icon-Searchn'></span>
         <input type='text' placeholder='搜索栏 (項目/ 地址)' onChange={searchChange} />
       </div>
+
     </div>
   )
 }
