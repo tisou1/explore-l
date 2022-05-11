@@ -1,7 +1,7 @@
 
 
 import React, { useMemo,useEffect, useRef, useCallback } from 'react'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 import { useDispatch, useSelector } from 'react-redux'
 
 import CategorySelect from './categorySelect'

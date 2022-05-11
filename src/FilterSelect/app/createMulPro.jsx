@@ -1,5 +1,5 @@
 import { useState, useMemo, memo, useEffect, useLayoutEffect, useRef } from 'react'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown, Menu } from 'antd'
 // import './createMultipleMenu.scss'

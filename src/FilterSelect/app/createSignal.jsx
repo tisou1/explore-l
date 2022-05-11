@@ -1,6 +1,6 @@
 import { useState, useMemo, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 import { Dropdown } from 'antd'
 import './createInterval.scss'
 

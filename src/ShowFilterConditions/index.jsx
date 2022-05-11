@@ -2,7 +2,7 @@
 
 import React, { useState,  useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 import './index.scss'
 
 const MULTIPLESELECT = [

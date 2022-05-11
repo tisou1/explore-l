@@ -3,7 +3,7 @@ import { Dropdown } from 'antd'
 import './createMultipleMenu.scss'
 import logo from '../logo.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 import { useEffect } from 'react'
 
 

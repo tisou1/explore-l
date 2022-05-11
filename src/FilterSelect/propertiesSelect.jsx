@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import CreateMulPro from "./app/createMulPro";
 import { useSelector, useDispatch } from 'react-redux'
-import { dispatchFilter } from '~/store'
+import { dispatchFilter } from '@/store'
 
 
 const list = [
