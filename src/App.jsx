@@ -13,11 +13,11 @@ function App() {
   const clickHandle = () => {
     let obj = count
     obj.value += 1
-    //state是进行的浅比较,所以需要进行immerable(不可变)的操作
+    //state是进行的浅比较,所以需要进行immerable(数据不可变)的操作
     setCount(count)
   }
   return (
-    <div className={'btn container-app w-[1200px] mx-auto '}>
+    <div className={'container-app w-[1200px] mx-auto '}>
 
       <div>
         {count.value}
