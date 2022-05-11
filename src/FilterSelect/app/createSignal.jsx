@@ -21,12 +21,11 @@ export default function CreateSignal(props) {
   const [selectData, setSelectData] = useState(defaultValue || 'All')
 
 
-  const chnageHandle = (val) => {
+  const chnageHandle = (item) => {
     // dispatch({ type: type, data: val })
+    dispatchFilter({ [type]: item.value })(dispatch)
 
-    dispatchFilter({ [type]: val })(dispatch)
-
-    setSelectData(val)
+    setSelectData(item.name)
     setVisible(false)
   }
 
@@ -59,7 +58,7 @@ const CustomOption = (props) => {
   const { list, onChange, icon = false } = props
   const [avtive, setActive] = useState(0)
   const clickHandle = (item, index) => {
-    onChange(item.name)
+    onChange(item)
     setActive(index)
   }
   return (

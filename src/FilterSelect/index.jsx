@@ -1,6 +1,6 @@
 
 
-import React, { useMemo,useEffect, useState, useReducer } from 'react'
+import React, { useMemo,useEffect, useRef, useCallback } from 'react'
 import { dispatchFilter } from '~/store'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -54,11 +54,14 @@ function FilterSelect(props) {
       return selectMapping.get(val)
   })
 
-  const searchChange = (e) => {
-    console.log(e.target.value)
+  const searchChange = useDebounce((e) => {
     dispatchFilter({ 'search': e.target.value })(dispatch)
+  }, 600)   
 
-  }
+//   const searchChange = (e) => {
+//     // console.log(e.target.value)
+//     dispatchFilter({ 'search': e.target.value })(dispatch)
+// }
 
   return (
     <div className='filter-select-main'>
@@ -79,3 +82,21 @@ function FilterSelect(props) {
 
 
 export default FilterSelect
+
+
+//防抖
+function useDebounce(fn, delay = 1000, dep = []) {
+  const { current } = useRef({ fn, timer: null });
+  useEffect(() => {
+    current.fn = fn;
+  }, [fn]);
+
+  return useCallback(function (...args) {
+    if (current.timer) {
+      clearTimeout(current.timer);
+    }
+    current.timer = setTimeout(() => {
+      current.fn.call(this, ...args);
+    }, delay);
+  }, dep);
+}

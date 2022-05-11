@@ -5,10 +5,10 @@ import { Dropdown } from 'antd'
 import './createInterval.scss'
 
 const list = [
-  { name: 'USD', token: 'p-icon-USD' },
-  { name: 'BNB', token: 'p-icon-BNB' },
-  { name: 'Polygon', token: 'p-icon-Polygon' },
-  { name: 'ETH', token: 'p-icon-ETH' }
+  { name: 'USD', token: 'usd' },
+  { name: 'BNB', token: 'bnb' },
+  { name: 'Polygon', token: 'polygon' },
+  { name: 'ETH', token: 'eth' }
 ]
 
 export default function CreateInterval(props) {
@@ -25,7 +25,7 @@ export default function CreateInterval(props) {
   const [visible, setVisible] = useState(false)
   const [selectData, setSelectData] = useState({
     defaultValue: '-',
-    token: 'p-icon-USD',//p-icon-Polygon, p-icon-BNB
+    token: 'usd',//p-icon-Polygon, p-icon-BNB
     min: '',
     max: '',
   })
@@ -104,7 +104,7 @@ const TokenItem = (props) => {
                 icon &&
                 <div className='token-name'>
                   <svg className="icon" aria-hidden="true">
-                    <use xlinkHref={'#' + item.token}></use>
+                    <use xlinkHref={`#p-icon-${item.token}`}></use>
                   </svg>
                 </div>
               }
@@ -133,7 +133,7 @@ const CustomSelectTrigger = memo((props) => {
       }
       : {
         name: defaultValue,
-        token: 'p-icon-USD'
+        token: 'usd'
       }
   }
 
@@ -144,7 +144,7 @@ const CustomSelectTrigger = memo((props) => {
           icon &&
           <div className='token-name'>
             <svg className="icon" aria-hidden="true">
-              <use xlinkHref={'#' + showWhichOrigin().token}></use>
+              <use xlinkHref={`#p-icon-${showWhichOrigin().token}`}></use>
             </svg>
           </div>
         }

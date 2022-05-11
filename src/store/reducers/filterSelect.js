@@ -1,12 +1,14 @@
 import types from '../types'
 
+const DEFAULT_TOKEN = 'usd'
+
 const initState = {
   categorySelect: [],//多选
   projectSelect: [],//多选
   propertiesSelect: [],//多层级多选
   statusSelect: [],//多选
   priceSelect: {
-    token: 'p-icon-USD',
+    token: DEFAULT_TOKEN,
     min: '',
     max: '',
   }, //类型&区间
@@ -15,13 +17,13 @@ const initState = {
     max: ''
   }, //区间(交易数)
   tradingSelect: {
-    token: 'p-icon-USD',
+    token: DEFAULT_TOKEN,
     min: '',
     max: '',
   },//类型&区间 (交易量)
   timeSelect: '', //单选
   floorSelect: {
-    token: 'p-icon-USD',
+    token: DEFAULT_TOKEN,
     min: '',
     max: '',
   },//类型&区间
