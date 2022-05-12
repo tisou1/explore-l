@@ -32,9 +32,8 @@ function FilterSelect(props) {
 
 
   useEffect(() => {
-    console.log('组价更新');
     onChange(filterState)
-  },[])
+  })
 
 
   const selectMapping = useMemo(() => (

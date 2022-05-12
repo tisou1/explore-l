@@ -1,6 +1,3 @@
-
-
-import React, { useState,  useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { dispatchFilter } from '@/store'
 import './index.scss'
@@ -28,7 +25,6 @@ const MULTIPLESELECTPRO = [
 export default function ShowFilterConditions(props) {
   const dispatch = useDispatch()
   const state = useSelector(state => state.filterSelect)
-
   const clearAll = () => {
       //TODO
       dispatchFilter({ subType: 'clearAll' })(dispatch)
@@ -38,6 +34,7 @@ export default function ShowFilterConditions(props) {
   const showConditions = (() => {
     let list = []
     let conditions = Object.entries(state)
+
     conditions.forEach(([key, value]) => {
       //多选
       if (MULTIPLESELECT.includes(key) && Array.isArray(value)) {
@@ -72,8 +69,10 @@ export default function ShowFilterConditions(props) {
           )
         }
       }
-    })
-    console.log(list);
+    });
+
+
+    // console.log(list);
     return list
   })()
   
