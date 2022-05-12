@@ -34,7 +34,6 @@ export default function ShowFilterConditions(props) {
   const showConditions = (() => {
     let list = []
     let conditions = Object.entries(state)
-
     conditions.forEach(([key, value]) => {
       //多选
       if (MULTIPLESELECT.includes(key) && Array.isArray(value)) {
@@ -70,9 +69,7 @@ export default function ShowFilterConditions(props) {
         }
       }
     });
-
-
-    // console.log(list);
+    console.log(list);
     return list
   })()
   

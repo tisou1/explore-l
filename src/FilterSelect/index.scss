@@ -3,11 +3,11 @@
     align-items: center;
     justify-content: space-between;
     font-weight: 600;
-    margin-bottom: 24px;
     .header-left{
       font-size: 18px;
     }
     .header-right{
+      cursor: pointer;
       font-size: 12px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 8px;
@@ -47,6 +47,7 @@
     flex-flow: row wrap;
     gap: 24px;
     margin-bottom: 24px;
+    margin-top: 24px;
 
     &.hidden{
       display: none;
