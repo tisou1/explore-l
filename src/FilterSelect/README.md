@@ -4,6 +4,8 @@
 - `onChange`是条件改变之后的回调事件,该事件接收`state`
 - `selects`传入一个数组,指定要使用那些内部组件.
 
+> 搭配ShowFilterConditions组件进行条件的展示.
+
 
 ## selects可选值
 
@@ -18,11 +20,12 @@
 
 ### 两层多选
 `PropertiesSelect(属性)`
-           
+
 
 
 ```jsx
   import FilterSelect from '**/FilterSelect'
+  import  ShowFilterConditions from '**/ShowFilterConditions'
   export default function () {
     const changeHandle = (state) => {
       //state接收的是全部状态的值
@@ -45,6 +48,8 @@
             'FloorSelect'
           ]}
           />
+
+          <ShowFilterConditions />
       </div>
     )
   }

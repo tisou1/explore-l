@@ -78,7 +78,7 @@ export default function ShowFilterConditions(props) {
   })()
   
   return (
-      <div className='filter-select-show mt-6'>
+      <div className='filter-select-show'>
         {showConditions}
         {
           showConditions.length > 0 && 
