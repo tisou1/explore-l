@@ -21,7 +21,7 @@ function App() {
       // 'PriceSelect',
       // 'TransactionsNumSelect',
       // 'TradingSelect',
-      // 'FloorSelect',
+      'FloorSelect',
       'TimeSelect',
     ]
   },[])

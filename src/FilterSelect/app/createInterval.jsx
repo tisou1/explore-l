@@ -55,9 +55,10 @@ export default function CreateInterval(props) {
       }
 
       <div className='min-max'>
-        <input type="text" placeholder='Min' value={selectData.min} onChange={(e) => setSelectData({ ...selectData, min: e.target.value })} />
-        <input type="text" placeholder='Max' value={selectData.max} onChange={(e) => setSelectData({ ...selectData, max: e.target.value })} />
+         <input type="text" placeholder='Min' value={selectData.min} onChange={(e) => setSelectData({ ...selectData, min: e.target.value })} />
+         <input type="text" placeholder='Max' value={selectData.max} onChange={(e) => setSelectData({ ...selectData, max: e.target.value })} />
       </div>
+      
       <div className='submit-btn'>
         <button onClick={clickHandle}>确定</button>
       </div>
@@ -126,7 +127,7 @@ const CustomSelectTrigger = memo((props) => {
   const { show, icon, type, defaultValue } = props
   const showWhichOrigin = () => {
     let item = filterState[type]
-    return item.min  && item.max 
+    return item.min && item.max
       ? {
         name: `${item.min} ~ ${item.max}`,
         token: item.token

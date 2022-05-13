@@ -128,7 +128,7 @@ function FilterSelectPartMb(props) {
           footer={null}
           bodyStyle={{maxHeight: '80vh',overflow:'scroll'}}
           className="filterSelect-modal"
-          // wrapClassName=""
+          wrapClassName="filter-wrap"
           >
           <div className='filter-select-list-mb' >
             {

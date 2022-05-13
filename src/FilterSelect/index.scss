@@ -106,6 +106,12 @@
 
 
 @media (max-width: 767.9px) {
+
+  .filter-wrap{
+    .ant-modal {
+      max-width: calc(100vw - 48px);
+    }
+  }
   .select-container-mb{
     width: 100%;
     display: block;
@@ -115,6 +121,9 @@
   }
 
   .filterSelect-modal{
+    .ant-modal-header{
+      border-bottom: none;
+    }
     .bm-btn{
       display: flex;
       gap: 24px;
