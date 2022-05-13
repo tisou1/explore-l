@@ -69,7 +69,7 @@ export default function ShowFilterConditions(props) {
         }
       }
     });
-    console.log(list);
+    // console.log(list);
     return list
   })()
   

@@ -102,9 +102,12 @@ const CustomSelectTrigger = memo((props) => {
     if(value) {
      return list.find(val => val.value === value)
     }
-    return defaultValue
+    return {
+      name: defaultValue
+    }
   })
 
+  console.log(showWhichOrigin);
   return (
     <div className='custom-select-int'>
       <div className='select-value'>

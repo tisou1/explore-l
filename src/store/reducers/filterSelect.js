@@ -21,7 +21,7 @@ const initState = {
     min: '',
     max: '',
   },//类型&区间 (交易量)
-  timeSelect: '', //单选
+  timeSelect: '7', //单选
   floorSelect: {
     token: DEFAULT_TOKEN,
     min: '',

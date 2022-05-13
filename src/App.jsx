@@ -7,10 +7,8 @@ import { useState,useMemo,useCallback } from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
-  const changeHandle = useCallback(() => {
-    (state) => {
+  const changeHandle = useCallback((state) => {
       console.log('state:',state);
-    }
   },[])
 
   const selects = useMemo(() => {
