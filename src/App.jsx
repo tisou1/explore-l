@@ -14,13 +14,13 @@ function App() {
   const selects = useMemo(() => {
     return [
       'CategorySelect',
-      // 'ProjectSelect',
-      // 'PropertiesSelect',
-      // 'StatusSelect',
-      // "EventSelect",
-      // 'PriceSelect',
-      // 'TransactionsNumSelect',
-      // 'TradingSelect',
+      'ProjectSelect',
+      'PropertiesSelect',
+      'StatusSelect',
+      "EventSelect",
+      'PriceSelect',
+      'TransactionsNumSelect',
+      'TradingSelect',
       'FloorSelect',
       'TimeSelect',
     ]

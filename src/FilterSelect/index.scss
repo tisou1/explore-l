@@ -46,7 +46,7 @@
     margin-bottom: 24px;
     @media (max-width:767.9px) {
       // flex-flow: column;  
-      display: none;    
+      display: none; 
     }
   }
 
@@ -103,6 +103,9 @@
 .select-container-mb{
   display: none;
 }
+// .filter-wrap{
+//   display: none;
+// }
 
 
 @media (max-width: 767.9px) {
@@ -114,11 +117,18 @@
   }
   .select-container-mb{
     width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;   
     display: block;
       .filter-select-header{
         @include filter-select-header;
       }
   }
+  // .filter-wrap{
+  //   display: unset;
+  // }
 
   .filterSelect-modal{
     .ant-modal-header{
