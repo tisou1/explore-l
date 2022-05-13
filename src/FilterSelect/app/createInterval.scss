@@ -8,6 +8,7 @@
   cursor: pointer;
   .select-value {
     display: flex;
+    align-items: center;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;

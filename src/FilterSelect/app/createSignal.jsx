@@ -46,7 +46,7 @@ export default function CreateSignal(props) {
           setVisible(v)
         }}>
         <div>
-          <CustomSelectTrigger selectData={selectData} show={visible} icon={icon} type={type} defaultValue={defaultValue}/>
+          <CustomSelectTrigger selectData={selectData} list={list} show={visible} icon={icon} type={type} defaultValue={defaultValue}/>
         </div>
       </Dropdown>
     </div>
@@ -91,12 +91,19 @@ const CustomOption = (props) => {
 
 /// trigegr children
 const CustomSelectTrigger = memo((props) => {
+  const { list } = props
   // console.log('CustomSelect组件',props.selectData);
   const filterState = useSelector(state => state.filterSelect)
 
   const { selectData, show, icon, type, defaultValue } = props
 
-  const showWhichOrigin = useMemo(() => ({ name: filterState[type] || defaultValue }), [filterState[type]])
+  const showWhichOrigin = useMemo(() => {
+    let value = filterState[type]
+    if(value) {
+     return list.find(val => val.value === value)
+    }
+    return defaultValue
+  })
 
   return (
     <div className='custom-select-int'>

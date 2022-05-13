@@ -28,12 +28,12 @@ function FilterSelect(props) {
   const dispatch = useDispatch()
   const { onChange, selects } = props
   const [show, setShow] = useState(true)
-  const [mbShow, setmbShow] = useState(false)
 
+  console.log('FilterSelect render');
 
   useEffect(() => {
     onChange(filterState)
-  })
+  },[filterState])
 
 
   const selectMapping = useMemo(() => (
@@ -90,26 +90,9 @@ function FilterSelect(props) {
           }
         </div>
       </div>
-
+        
       {/* mb */}
-      <div className='select-container-mb'>
-        <div className='filter-select-header'>
-          <div className='header-left'>Sift</div>
-          <div className='header-right' onClick={() => setmbShow(!mbShow)}>
-            <span className='num'>{selectComponentList.length}</span>
-            <span className='picon p-icon-Sift'></span>
-          </div>
-        </div>
-        <Modal visible={mbShow} onCancel={() => setmbShow(false)}>
-          <div className={`filter-select-list-mb ${show ? '' : 'hidden'}`} >
-            {
-              selectComponentList.map((component) => (
-                component
-              ))
-            }
-          </div>
-        </Modal>
-      </div>
+      <FilterSelectPartMb list={selectComponentList}/>
 
 
       <div className='search-input'>
@@ -122,7 +105,50 @@ function FilterSelect(props) {
 }
 
 
-export default FilterSelect
+function FilterSelectPartMb(props) {
+  const dispatch = useDispatch()
+  const { list } = props
+  const [mbShow, setmbShow] = useState(false)
+
+  return (
+      <>
+      <div className='select-container-mb'>
+        <div className='filter-select-header'>
+          <div className='header-left'>Sift</div>
+          <div className='header-right' onClick={() => setmbShow(!mbShow)}>
+            <span className='num'>{props.list.length}</span>
+            <span className='picon p-icon-Sift'></span>
+          </div>
+        </div>
+        <Modal 
+          title="筛选"
+          visible={mbShow} 
+          onCancel={() => setmbShow(false)}
+          closeIcon={<span className='picon p-icon-ShutDown'></span>}
+          footer={null}
+          bodyStyle={{maxHeight: '80vh',overflow:'scroll'}}
+          className="filterSelect-modal"
+          // wrapClassName=""
+          >
+          <div className='filter-select-list-mb' >
+            {
+              list.map((component) => (
+                component
+              ))
+            }
+          </div>
+          <div className='bm-btn'>
+            <button onClick={() => setmbShow(false)}>确认</button> 
+            <button onClick={() => dispatchFilter({ subType: 'clearAll' })(dispatch)}>重置</button>
+          </div>
+        </Modal>
+      </div>
+    </>
+  )
+}
+
+// export default FilterSelect
+export default React.memo(FilterSelect)
 
 
 //防抖

@@ -25,6 +25,18 @@
     }
 }
 
+.wrap-dropdown{
+  flex: auto;
+  @media (max-width: 767.9px) {
+    margin-bottom: 24px;
+  }
+  .dropdown-title{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+  }
+}
 
 .filter-select-main{
   .select-container{
@@ -100,5 +112,26 @@
       .filter-select-header{
         @include filter-select-header;
       }
+  }
+
+  .filterSelect-modal{
+    .bm-btn{
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      button{
+        height: 42px;
+        flex: auto;
+        border: none;
+        border-radius: 999px;    
+      }
+      button:first-child{
+        background: #F6D353;
+      }
+      button:nth-child(2){
+        background: #F6D353;
+        background-color: #FAFAFA;
+      }
+    }
   }
 }
