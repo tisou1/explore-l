@@ -97,7 +97,7 @@ function FilterSelect(props) {
 
       <div className='search-input'>
         <span className='picon p-icon-Searchn'></span>
-        <input type='text' placeholder='搜索栏 (項目/ 地址)' onChange={searchChange} />
+        <input type='text' placeholder='搜索栏 (项目/ID/持有人)' onChange={searchChange} />
       </div>
 
     </div>

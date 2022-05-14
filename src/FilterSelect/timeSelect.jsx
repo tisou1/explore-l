@@ -6,7 +6,6 @@ const list = [
   { name: '7D', value: '7' },
   { name: '30D', value: '30' },
   { name: '90D', value: '90' },
-  { name: '1D', value: '365' },
   { name: 'MAX', value: 'all' }
 ]
 

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { dispatchFilter } from '@/store'
 import './index.scss'
@@ -22,13 +23,14 @@ const MULTIPLESELECTPRO = [
   'propertiesSelect'
 ]
 
-export default function ShowFilterConditions(props) {
+function ShowFilterConditions(props) {
   const dispatch = useDispatch()
   const state = useSelector(state => state.filterSelect)
   const clearAll = () => {
       //TODO
       dispatchFilter({ subType: 'clearAll' })(dispatch)
   }
+  console.log('ShowFilterConditions render')
 
 
   const showConditions = (() => {
@@ -85,6 +87,8 @@ export default function ShowFilterConditions(props) {
       </div>
   )
 }
+
+export default memo(ShowFilterConditions)
 
 function ShowConditionsItem(props) {
   const dispatch = useDispatch()

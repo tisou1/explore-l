@@ -1,6 +1,7 @@
 import React from 'react'
 import FilterSelect from './FilterSelect'
 import ShowFilterConditions from './ShowFilterConditions'
+import { Button } from 'antd'
 import 'antd/dist/antd.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState,useMemo,useCallback } from 'react'
@@ -24,13 +25,17 @@ function App() {
       'FloorSelect',
       'TimeSelect',
     ]
-  },[])
+  })
 
-
+  const handleClick = () => {
+    console.log('点击')
+  }
 
   return (
     <div className={'container-app w-full lg:w-[1200px] mx-auto '}>
       <div onClick={() => setCount(count + 1)}>count: {count}</div>
+
+      <Button onClick={handleClick}>点击</Button>
       {/* <Counter name={selects}/> */}
       <FilterSelect 
         onChange={changeHandle} 
