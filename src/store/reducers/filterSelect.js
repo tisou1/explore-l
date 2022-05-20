@@ -60,7 +60,7 @@ const filterSelect = (state = initState, action) => {
     }
     return {
       ...state,
-      ...action.info
+      ...action.info //add data
     }
   } else {
     return state

@@ -5,6 +5,7 @@ specifiers:
   '@types/react-dom': ^18.0.3
   '@vitejs/plugin-react': ^1.3.2
   antd: ^4.20.4
+  immer: ^9.0.14
   react: ^18.1.0
   react-auto-height-transition: ^0.1.3
   react-dom: ^18.1.0
@@ -16,6 +17,7 @@ specifiers:
 
 dependencies:
   antd: 4.20.4_ef5jwxihqo6n7gxfmzogljlgcm
+  immer: 9.0.14
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
   react-redux: 8.0.1_l7mqxlueokpompik5bjgk5dm4i
@@ -1155,6 +1157,10 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: false
+
+  /immer/9.0.14:
+    resolution: {integrity: sha512-ubBeqQutOSLIFCUBN03jGeOS6a3DoYlSYwYJTa+gSKEZKU5redJIqkIdZ3JVv/4RZpfcXdAWH5zCNLWPRv2WDw==}
     dev: false
 
   /immutable/4.0.0:
