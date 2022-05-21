@@ -4,8 +4,8 @@ import ShowFilterConditions from './ShowFilterConditions'
 import { Button } from 'antd'
 import 'antd/dist/antd.css'
 import { useSelector, useDispatch } from 'react-redux'
-
-
+import Filp from './Flip'
+import Test from './Test'
 function App() {
   const [count, setCount] = useState(0)
   const changeHandle = useCallback((state) => {
@@ -33,6 +33,8 @@ function App() {
 
   return (
     <div className={'container-app w-full lg:w-[1200px] mx-auto  aspect-video'}>
+      <Test/>
+      <Filp />
       {/* <div onClick={() => setCount(count + 1)}>count: {count}</div>
 
       <Button onClick={handleClick}>点击</Button> */}
