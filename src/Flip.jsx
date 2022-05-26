@@ -47,6 +47,7 @@ export default function Flip() {
 
       console.log(_style.current);
 
+      //挺关键的.
       setTimeout(() => {
         setStatus(3)
       },0)
