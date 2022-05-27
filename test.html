@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="mxsyx">
+  <title>p11-3</title>
+  <style>
+    #p11-3 {
+      overflow: hidden;
+      transition: height 1s;
+      margin: 0px;
+      padding-left: 0px;
+    }
+    
+    #p11-3 li {
+      font-size: 16px;
+      color: #ffffff;
+      line-height: 30px;
+      text-align: center;
+      margin: 0px;
+    }
+
+    #p11-3-btn {
+      cursor: pointer;
+      background-color: #dcdcdc;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="p11-3-btn" onclick="toggleByOffsetHeight()">▼点我展开</div>
+  <ul id="p11-3" style="height: 0px;">
+    <li style="background: #FF6666; padding: 10px 0px">第一</li>
+    <li style="background: #FF9900; border: solid 5px red">第二</li>
+    <li style="background: #CCFF00; padding: 15px 0px">第三</li>
+    <li style="background: #CC3399; border: double 3px blue">第四</li>
+  </ul>
+
+  <script>
+    function toggleByOffsetHeight() {
+      const containerStyle = document.querySelector('#p11-3').style;
+      const childs = document.querySelectorAll('#p11-3 li');
+      const buttonExpand = document.querySelector('#p11-3-btn');
+      let totalHeight = 0;
+      childs.forEach(child => {
+        totalHeight += parseInt(child.offsetHeight);
+      });
+      if (containerStyle.height == '0px') {
+        containerStyle.height = `${totalHeight}px`;
+        buttonExpand.innerText = '▲点我收起';
+      } else {
+        containerStyle.height = '0px';
+        buttonExpand.innerText = '▼点我展开 ';
+      }
+    }
+  </script>
+</body>
+
+</html>
