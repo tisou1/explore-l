@@ -18,7 +18,7 @@ function Transition() {
   return (
     <div className='transition container mx-auto p-5 py-10 flex justify-center flex-col'>
       <div className='text-red-300/50 text-lg'>
-        asdas{isPending && 'pengding......'}
+        {isPending && 'pengding......'}
       </div>
       <button 
       onClick={handleClick} 
