@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className={'container-app w-full lg:w-[1200px] mx-auto  aspect-video'}>
-      <About />
+      <About />asd
         <Sandpack 
         template="react"
         files={{
