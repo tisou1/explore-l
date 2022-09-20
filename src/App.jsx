@@ -14,13 +14,13 @@ function App() {
 
   return (
     <div className={'container-app w-full lg:w-[1200px] mx-auto  aspect-video'}>
-      <About />asd
-        <Sandpack 
+      <About name="about组件"/>
+        {/* <Sandpack 
         template="react"
         files={{
           './App.js': code
         }}
-       />
+       /> */}
        
     </div>
   )
