@@ -9,3 +9,11 @@ import types from '../types'
         dispatch({type: types.FILTER_SELECT, info});
     };
 };
+
+
+export const dispatcCount = (info) => {
+    return (dispatch) => {
+        dispatch({type: 'couter', info});
+    };
+};
+

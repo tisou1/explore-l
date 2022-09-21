@@ -33,16 +33,6 @@ const initState = {
 
 
 const filterSelect = (state = initState, action) => {
-  // switch (action.type) {
-  //     case types.FILTER_SELECT:
-  //         return {
-  //             ...state,
-  //             ...action.info
-  //         }
-  //     default:
-  //         return state
-  // }
-
   if (action.type === types.FILTER_SELECT) {
     let { subType = false } = action.info
     if(subType) {//这里需要清除东西
@@ -67,4 +57,18 @@ const filterSelect = (state = initState, action) => {
   }
 };
 
-export default filterSelect;
+
+const dispatcCount = (state = 0, action) => {
+  switch(action.type) {
+    case 'counter': 
+      return  state += 1
+    default:
+       return state
+  }
+  
+};
+
+export  {
+  filterSelect,
+  dispatcCount
+}
