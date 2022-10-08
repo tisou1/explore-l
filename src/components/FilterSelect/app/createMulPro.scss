@@ -1,0 +1,43 @@
+.mul-pro {
+  padding: 12px 0;
+  .submit-btn{
+  padding: 12px;
+  }
+  .cus-select {
+    padding:0 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    .trigger {
+      height: 42px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 600;
+
+      .title {
+        font-size: 12px;
+      }
+    }
+
+    // search
+    .submenu-content {
+      .search-input {
+        margin: 12px 0;
+      }
+    }
+
+    .list-content {
+      max-height: 0;
+      overflow: hidden;
+      // background-color: gray;
+      transition: all 0.3s linear;
+
+      &.open {
+        max-height: 360px;
+        // overflow-y: scroll;
+        transform-origin: 50% 0;
+      }
+    }
+
+  }
+}

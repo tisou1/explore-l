@@ -1,0 +1,38 @@
+.filter-select-show{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #000;
+  margin-top: 24px;
+  .condition-display{
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    .condition-left{
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      .token-name{
+        margin-right: 8px;
+        font-size: 20px;
+      }
+    }
+  }
+  .picon.p-icon-ShutDown{
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .clearAll{
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #F6D353;
+  }
+}
